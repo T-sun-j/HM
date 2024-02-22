@@ -65,7 +65,7 @@
   .img-cont{
     overflow: hidden;
     h4{
-      font-size: .3rem;
+      font-size: 0.24rem;
       line-height: 1.2;
       color: #333;
       margin: .16rem 0 .1rem;

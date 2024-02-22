@@ -20,7 +20,7 @@
           </div>
           <div
             class="buy"
-            v-if="productDetailsInfo.buytype !== 0"
+            v-if="productDetailsInfo.buytype != 0"
             @click="goBuyLink"
           ></div>
           <!-- <div class="buy-none"></div> -->
@@ -48,9 +48,19 @@
         <!-- <van-divider style="padding: 0 0.2rem" /> -->
         <div class="feature">
           <h5>产品特点</h5>
-          <p v-for="(item, index) in productDetailsInfo.feature" :key="index">
-            <span class="divider"></span>{{ item.title }}
-          </p>
+          <ul>
+            <li
+              v-for="(item, index) in productDetailsInfo.feature"
+              :key="index"
+            >
+              <span class="divider"></span>
+              <span class="content">{{ item.title }}</span>
+            </li>
+          </ul>
+          <p
+            v-for="(item, index) in productDetailsInfo.feature"
+            :key="index"
+          ></p>
         </div>
         <div class="file-zone">
           <h4>技术文档</h4>
@@ -98,7 +108,7 @@ import item from "@/components/item.vue";
 import cell from "@/components/cell.vue";
 import foot from "@/components/foot.vue";
 import { getProductDetails } from "@/api/product.js";
-import { showToast, showSuccessToast, showFailToast } from 'vant';
+import { showToast, showSuccessToast, showFailToast } from "vant";
 export default {
   components: {
     indexHeader,
@@ -494,14 +504,26 @@ export default {
     border-radius: 50%;
     background: #333;
     margin-right: 0.1rem;
-    margin-bottom: 0.05rem;
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    // margin-bottom: 0.05rem;
   }
-  p {
+  .content {
     font-size: 0.24rem;
+    width: 100%;
     color: #333;
+    display: inline-block;
     line-height: 0.5rem;
-    text-indent: 0.3rem;
+    text-align: left;
+    // text-indent: 0.3rem;
     font-family: "PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif" !important;
+  }
+    li {
+    position: relative;
+    padding-left: 0.4rem;
+    padding-right: 0.2rem;
+    
   }
 }
 .tag-cont {

@@ -349,7 +349,7 @@ export default {
     height: 1.1rem;
     padding: 0.1rem;
     display: inline-block;
-    border: 1px solid #e3e3e3;
+    border: 0.01rem solid #fbf7f7;
     // border-bottom: 1px solid #bababa;
     flex-shrink: 0;
 
@@ -497,12 +497,12 @@ export default {
   // color: #fff;
 }
 .img_gray {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
-  filter: grayscale(100%);
-  filter: gray;
+  // -webkit-filter: grayscale(50%);
+  // -moz-filter: grayscale(50%);
+  // -ms-filter: grayscale(50%);
+  // -o-filter: grayscale(50%);
+  filter: brightness(0);
+  // filter: gray;
   opacity: 30%;
 }
 /deep/.van-cell__title{
