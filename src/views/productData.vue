@@ -73,7 +73,7 @@
                 class="title1"
                 @click="
                   !itemChild.child || itemChild.child.length == 0
-                    ? goDetail(itemChild.secret)
+                    ? goDetail(itemChild)
                     : ''
                 "
               >
@@ -86,9 +86,7 @@
                 <h5
                   class="title2"
                   @click="
-                    itemChild2.child.length == 0
-                      ? goDetail(itemChild2.secret)
-                      : ''
+                    itemChild2.child.length == 0 ? goDetail(itemChild2) : ''
                   "
                 >
                   {{ itemChild2.title }}
@@ -100,9 +98,7 @@
                   <h5
                     class="title3"
                     @click="
-                      itemChild3.child.length == 0
-                        ? goDetail(itemChild3.secret)
-                        : ''
+                      itemChild3.child.length == 0 ? goDetail(itemChild3) : ''
                     "
                   >
                     {{ itemChild3.title }}
@@ -192,6 +188,7 @@ export default {
         if (res) {
           this.firstLevelData = res.typeList;
           this.activeItemIndex = this.firstLevelData[0].secret;
+          res.productList.map((item) => (item.isProduct = true));
           this.lowerData.child = JSON.parse(JSON.stringify(res.productList));
           this.logos = res.brand;
         } else {
@@ -245,7 +242,6 @@ export default {
             const res = await this.getMaterialproductlist(item);
             if (res) {
               item.child = res;
-              console.log("item.child :", item.child);
             }
           }
         });
@@ -271,6 +267,7 @@ export default {
         });
 
         if (res) {
+          res.productList.map((item) => (item.isProduct = true));
           return res.productList;
         } else {
           showToast(res.msg);
@@ -281,13 +278,17 @@ export default {
         return null;
       }
     },
-    goDetail(secret) {
-      this.$router.push({
-        path: "/productDetail",
-        query: {
-          secret: secret,
-        },
-      });
+    goDetail(item) {
+      if (item.isProduct) {
+        this.$router.push({
+          path: "/productDetail",
+          query: {
+            secret: item.secret,
+          },
+        });
+      } else {
+        showToast('暂无产品')
+      }
     },
     goto(num) {
       this.$router.push({
@@ -417,7 +418,7 @@ export default {
         padding: 0.1rem 0.1rem 0.1rem 0.3rem;
         display: flex;
         min-height: 0.6rem;
-        line-height: 0.5rem;
+        line-height: 0.4rem;
         white-space: pre-wrap;
         align-items: center;
       }
@@ -472,7 +473,6 @@ export default {
   }
 }
 
-
 /deep/.van-collapse-item,
 /deep/.van-collapse-item__title {
   background: #bed0e1;
@@ -481,12 +481,21 @@ export default {
   line-height: 0.4rem;
   border-top: 0.01rem solid #fff;
 }
+/deep/.van-collapse-item__wrapper{
+  margin:0 !important;
+}
 /deep/.van-collapse-item__content {
   background: #0064a0;
   color: #fff;
   padding: 0;
+  margin: 0;
   p {
-    line-height: 0.8rem;
+    // line-height: 0.6rem;
+    // margin:0.3rem 0;
+    padding:0.3rem 0
+  }
+  .vanPad{
+    padding:0.2rem 0.2rem !important;
   }
 }
 /deep/.van-collapse-item__title--expanded {
@@ -503,9 +512,9 @@ export default {
   // -o-filter: grayscale(50%);
   filter: brightness(0);
   // filter: gray;
-  opacity: 30%;
+  opacity: 0.3;
 }
-/deep/.van-cell__title{
+/deep/.van-cell__title {
   font-size: 0.24rem;
 }
 </style>

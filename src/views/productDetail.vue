@@ -350,10 +350,13 @@ export default {
   }
   .detail-img {
     margin-top: 0.2rem;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     img {
-      width: auto;
+      width: 100%;
+      height: 100%;
       margin: 0 auto;
     }
     .content {
@@ -366,6 +369,9 @@ export default {
       transition: max-height 0.7s linear;
       -webkit-mask: line-gradient(red 150px, transparent 200px);
       p {
+        margin-bottom: 0.1rem;
+      }
+      div{
         margin-bottom: 0.1rem;
       }
     }
@@ -497,41 +503,38 @@ export default {
     line-height: 0.8rem;
   }
   .divider {
-    display: inline-block;
-    border: 0.03rem solid #333;
+    border: 0.04rem solid #333;
     width: 0.02rem;
     height: 0.02rem;
     border-radius: 50%;
     background: #333;
-    margin-right: 0.1rem;
-    position: absolute;
-    top: 0.2rem;
-    left: 0.2rem;
-    // margin-bottom: 0.05rem;
+    // position: absolute;
+    // top: 0.2rem;
+    // left: 0.2rem;
+    margin-top: 0.15rem;
+    margin-left: 0.2rem;
   }
   .content {
     font-size: 0.24rem;
-    width: 100%;
+    width: 90%;
     color: #333;
     display: inline-block;
-    line-height: 0.5rem;
+    line-height: 0.4rem;
     text-align: left;
-    // text-indent: 0.3rem;
+    padding:0 0.2rem;
+    flex: 1;
     font-family: "PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif" !important;
   }
     li {
-    position: relative;
-    padding-left: 0.4rem;
-    padding-right: 0.2rem;
-    
+    display: flex;
   }
 }
 .tag-cont {
   position: relative;
   padding: 0.95rem 0.22rem 0 0.22rem;
   .logo {
-    width: 0.92rem;
-    height: 0.92rem;
+    width: 1.2rem;
+    height: 1.2rem;
     position: absolute;
     top: 0;
     left: 0.2rem;
