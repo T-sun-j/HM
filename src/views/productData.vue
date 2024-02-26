@@ -20,7 +20,7 @@
       input-align="center"
     /> -->
       <div class="logo-box">
-        <div class="logos">
+        <div class="logos" ref="logoBox">
           <div
             class="logo-item"
             v-for="(item, index) in logos"
@@ -86,7 +86,9 @@
                 <h5
                   class="title2"
                   @click="
-                    itemChild2.child.length == 0 ? goDetail(itemChild2) : ''
+                    !itemChild2.child || itemChild2.child.length == 0
+                      ? goDetail(itemChild2)
+                      : ''
                   "
                 >
                   {{ itemChild2.title }}
@@ -98,7 +100,9 @@
                   <h5
                     class="title3"
                     @click="
-                      itemChild3.child.length == 0 ? goDetail(itemChild3) : ''
+                      !itemChild3.child || itemChild3.child.length == 0
+                        ? goDetail(itemChild3)
+                        : ''
                     "
                   >
                     {{ itemChild3.title }}
@@ -172,9 +176,10 @@ export default {
     };
   },
   created() {
-    this.getMaterial("");
-    console.log("showTab--->", this.showTab);
+    this.getMaterial(this.$route.query.brandsecret || "");
+    this.logoAct = this.$route.query.logoAct || 0;
   },
+
   methods: {
     getMaterial(secret) {
       const param = {
@@ -187,10 +192,26 @@ export default {
       getMaterial(param).then((res) => {
         if (res) {
           this.firstLevelData = res.typeList;
-          this.activeItemIndex = this.firstLevelData[0].secret;
+          // this.activeItemIndex = this.firstLevelData[0].secret;
           res.productList.map((item) => (item.isProduct = true));
           this.lowerData.child = JSON.parse(JSON.stringify(res.productList));
           this.logos = res.brand;
+          this.$nextTick(() => {
+            const logoBox = this.$refs.logoBox;
+            if (logoBox) {
+              const logoItems = logoBox.getElementsByClassName("logo-item");
+              if (
+                logoItems &&
+                logoItems.length > 0 &&
+                logoItems[this.logoAct]
+              ) {
+                logoItems[this.logoAct].scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
+              }
+            }
+          });
         } else {
           showToast(res.msg);
         }
@@ -284,10 +305,11 @@ export default {
           path: "/productDetail",
           query: {
             secret: item.secret,
+            logoAct: this.logoAct,
           },
         });
       } else {
-        showToast('暂无产品')
+        showToast("暂无产品");
       }
     },
     goto(num) {
@@ -355,7 +377,7 @@ export default {
     flex-shrink: 0;
 
     &:last-child {
-      border: none;
+      //border: none;
     }
 
     img {
@@ -481,8 +503,8 @@ export default {
   line-height: 0.4rem;
   border-top: 0.01rem solid #fff;
 }
-/deep/.van-collapse-item__wrapper{
-  margin:0 !important;
+/deep/.van-collapse-item__wrapper {
+  margin: 0 !important;
 }
 /deep/.van-collapse-item__content {
   background: #0064a0;
@@ -492,10 +514,10 @@ export default {
   p {
     // line-height: 0.6rem;
     // margin:0.3rem 0;
-    padding:0.3rem 0
+    padding: 0.3rem 0;
   }
-  .vanPad{
-    padding:0.2rem 0.2rem !important;
+  .vanPad {
+    padding: 0.2rem 0.2rem !important;
   }
 }
 /deep/.van-collapse-item__title--expanded {

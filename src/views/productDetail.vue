@@ -127,10 +127,13 @@ export default {
       showContent: false,
       secret: 0,
       productDetailsInfo: {},
+      logoAct:0
     };
   },
   created() {
     this.secret = this.$route.query.secret;
+    this.logoAct = this.$route.query.logoAct;
+    console.log('this.logoAct :', this.logoAct);
     this.getProductDetails();
     this.showContent = false;
   },
@@ -147,14 +150,6 @@ export default {
       getProductDetails(param).then((res) => {
         if (res) {
           this.productDetailsInfo = res.data;
-          console.log("this.productDetailsInfo :", this.productDetailsInfo);
-          // this.productDetailsInfo.senes = [
-          //   {
-          //     title: "cccc",
-          //     secret: "aabbddeeff",
-          //     pic: "/uploads/20230927/12311176eb5414a1735528bcce6f47be.png",
-          //   },
-          // ];
           this.showContent = true;
           this.$nextTick(() => {
             this.showTab =
@@ -165,20 +160,14 @@ export default {
         }
       });
     },
-    changeTab(index) {
-      this.active = index;
-      if (index == 1) {
-        this.$router.push({
-          path: "/productMarket",
-        });
-      } else {
-        this.$router.push({
-          path: "/productData",
-        });
-      }
-    },
     goback() {
-      this.$router.go(-1);
+      this.$router.push({
+        name: 'productData',
+        query: {
+          logoAct: this.logoAct,
+          brandsecret:this.productDetailsInfo.brandsecret
+        }
+      })
     },
     onDownload(filepath, filename) {
       const x = new XMLHttpRequest();
