@@ -70,10 +70,10 @@
               :key="index"
             >
               <img src="../assets/img/pdf.png" alt="" />
-              <!-- <span @click="onDownload(item.listpic, item.title)">{{
+              <span @click="onDownload(item.listpic, item.title)">{{
                 item.title
-              }}</span> -->
-              <a :href="item.listpic" download>{{ item.title }}</a>
+              }}</span>
+              <!-- <a :href="item.listpic" download>{{ item.title }}</a> -->
             </li>
             <!-- <li>
               <img src="../assets/img/pdf.png" alt="" />
@@ -127,13 +127,13 @@ export default {
       showContent: false,
       secret: 0,
       productDetailsInfo: {},
-      logoAct:0
+      logoAct: 0,
     };
   },
   created() {
     this.secret = this.$route.query.secret;
     this.logoAct = this.$route.query.logoAct;
-    console.log('this.logoAct :', this.logoAct);
+    console.log("this.logoAct :", this.logoAct);
     this.getProductDetails();
     this.showContent = false;
   },
@@ -162,12 +162,12 @@ export default {
     },
     goback() {
       this.$router.push({
-        name: 'productData',
+        name: "productData",
         query: {
           logoAct: this.logoAct,
-          brandsecret:this.productDetailsInfo.brandsecret
-        }
-      })
+          brandsecret: this.productDetailsInfo.brandsecret,
+        },
+      });
     },
     onDownload(filepath, filename) {
       const x = new XMLHttpRequest();
@@ -177,16 +177,16 @@ export default {
         const blob = x.response;
         const url = window.URL.createObjectURL(blob);
         // 判断是否是IE浏览器
-        // if (window.navigator.msSaveBlob) {
-        //   try {
-        //     window.navigator.msSaveBlob(blob, filename);
-        //   } catch (e) {}
-        // } else {
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = filename + filepath;
-        a.click();
-        // }
+        if (window.navigator.msSaveBlob) {
+          try {
+            window.navigator.msSaveBlob(blob, filename);
+          } catch (e) {}
+        } else {
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          a.click();
+        }
       };
       x.send();
     },
@@ -360,7 +360,7 @@ export default {
       p {
         margin-bottom: 0.1rem;
       }
-      div{
+      div {
         margin-bottom: 0.1rem;
       }
     }
@@ -510,11 +510,11 @@ export default {
     display: inline-block;
     line-height: 0.4rem;
     text-align: left;
-    padding:0 0.2rem;
+    padding: 0 0.2rem;
     flex: 1;
     font-family: "PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif" !important;
   }
-    li {
+  li {
     display: flex;
   }
 }
