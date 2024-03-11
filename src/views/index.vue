@@ -23,28 +23,52 @@
             <div
               v-is="'script'"
               type="text/wxtag-template"
-              style=" position: absolute;
-              top: 0;
-              left: 0;display: block; width: 100%; height: 100%"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+              "
             >
-            <div style=" position: absolute;
-              top: 0;
-              left: 0;display: block; width: 100%; height: 100%" class="open-btn">打开小程序</div>
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                "
+                class="open-btn"
+              >
+                打开小程序
+              </div>
             </div>
           </wx-open-launch-weapp>
         </van-swipe-item>
-        <van-swipe-item v-for="(item,index) in focusMap" :key="index">
-          <img @click="gotoThat(item)" class="slide-img" :src="env.imgUrl+item.pic" alt="" />
+        <van-swipe-item v-for="(item, index) in focusMap" :key="index">
+          <img
+            @click="gotoThat(item)"
+            class="slide-img"
+            :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic"
+            alt=""
+          />
         </van-swipe-item>
-        
-        
       </van-swipe>
     </div>
     <div class="index-main">
       <index-title>热门搜索</index-title>
       <div class="tags">
-        <div v-for="(item,index) in hotspot" :key="index" @click="goto(item)" class="tag">{{ item.title }}</div>
-        
+        <div
+          v-for="(item, index) in hotspot"
+          :key="index"
+          @click="goto(item)"
+          class="tag"
+        >
+          {{ item.title }}
+        </div>
       </div>
       <div class="hot-zone">
         <index-title>您可能感兴趣</index-title>
@@ -53,46 +77,71 @@
     <div class="hot-list">
       <div class="wx-box">
         <wx-open-launch-weapp
+          style="
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+          "
+          id="launch-btn2"
+          username="gh_c965586ee466"
+          path="pages/register/register"
+        >
+          <div
+            v-is="'script'"
+            type="text/wxtag-template"
             style="
-              display: block;
               position: absolute;
               top: 0;
               left: 0;
+              display: block;
               width: 100%;
               height: 100%;
-              opacity: 0;
             "
-            id="launch-btn2"
-            username="gh_c965586ee466"
-            path="pages/register/register"
           >
             <div
-              v-is="'script'"
-              type="text/wxtag-template"
-              style=" position: absolute;
-              top: 0;
-              left: 0;display: block; width: 100%; height: 100%"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+              "
+              class="open-btn"
             >
-            <div style=" position: absolute;
-              top: 0;
-              left: 0;display: block; width: 100%; height: 100%" class="open-btn">打开小程序</div>
+              打开小程序
             </div>
-          </wx-open-launch-weapp>
+          </div>
+        </wx-open-launch-weapp>
       </div>
       <!-- @click="gotoThat(index)" -->
-      <div class="hot-item" > 
-        <item :itemdata="item" v-for="(item, index) in list" :key="index"></item>
-      </div>
-      <div class="hot-item" v-for="(item, index) in likeList" :key="index"> 
+      <!-- <div class="hot-item">
+        <item
+          :itemdata="item"
+          v-for="(item, index) in list"
+          :key="index"
+        ></item>
+      </div> -->
+      <div class="hot-item" v-for="(item, index) in likeList" :key="index">
         <item :itemdata="item"></item>
       </div>
 
-      <!-- <p v-for="(item,index) in list" :key="index">{{item.title}}</p> -->
+      <!-- <p v-for="(item,index) in brand" :key="index">{{item.title}}</p> -->
     </div>
     <div class="ads">
-      <img v-for="(item,index) in advertisement" :key="index" @click="gotoThat(item)" :src="item.pic" alt="" />
+      <img
+        v-for="(item, index) in advertisement"
+        :key="index"
+        @click="gotoThat(item)"
+        :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic"
+        alt=""
+      />
     </div>
-    <foot></foot>
+    <foot v-if="brand.length !== 0" :brand="brand"></foot>
   </div>
 </template>
 
@@ -102,7 +151,7 @@ import indexTitle from "@/components/title.vue";
 import item from "@/components/item.vue";
 import foot from "@/components/foot.vue";
 import { getHome } from "../api";
-import axios from 'axios'
+import axios from "axios";
 export default {
   components: {
     indexHeader,
@@ -113,30 +162,12 @@ export default {
   data() {
     return {
       env: window.env,
-      list: [
-        {
-          title: "你注册，我保障！",
-          time: "",
-          pic: require("@/assets/img/1.png"),
-          type:1
-        },
-        // {
-        //   title: "音乐新ONE法我们一起拭目以待",
-        //   time: "",
-        //   img: require("@/assets/img/2.png"),
-        // },
-        // {
-        //   title: "AMX SVSI N2600系列",
-        //   time: "",
-        //   img: require("@/assets/img/3.png"),
-        // },
-      ],
-      advertisement:[],
-      brand:[],
-      focusMap:[],
-      hotspot:[],
-      likeList:[],
-      user: []
+      advertisement: [],
+      brand: [],
+      focusMap: [],
+      hotspot: [],
+      likeList: [],
+      user: [],
     };
   },
   created() {
@@ -211,32 +242,31 @@ export default {
     });
   },
   methods: {
-    initData(){
-     
-      getHome().then(res => {
-        if(res.code == 0){
-          this.advertisement = res.advertisement,
-          this.brand =res.brand;
-          this.focusMap =res.focusMap;
-          this.hotspot =res.hotspot;
-          this.likeList =res.likeList.map((item) => {
+    initData() {
+      getHome().then((res) => {
+        if (res.code == 0) {
+          this.advertisement = res.advertisement;
+          this.brand = res.brand;
+          this.focusMap = res.focusMap;
+          this.hotspot = res.hotspot;
+          this.likeList = res.likeList.map((item) => {
             return {
               ...item,
-              pic:env.imgUrl+item.pic,
-              
-            }
+              pic:
+                (item.pic.includes("https") ? "" : this.env.imgUrl) + item.pic,
+            };
           });
-          this.user = res.user
+          this.user = res.user;
         }
-      })
+      });
     },
     goto(item) {
-      window.open(item.urllink,"_blank")
+      window.open(item.urllink, "_blank");
     },
-    gotoThat(item){
-      console.log(item.urllink)
-      window.open(item.urllink,"_blank")
-    }
+    gotoThat(item) {
+      console.log(item.urllink);
+      window.open(item.urllink, "_blank");
+    },
   },
 };
 </script>
@@ -264,9 +294,9 @@ export default {
   font-size: 0.24rem;
   margin: 0 0.1rem 0.1rem 0;
 }
-.hot-list{
+.hot-list {
   position: relative;
-  .wx-box{
+  .wx-box {
     position: absolute;
     width: 100%;
     height: 1.8rem;

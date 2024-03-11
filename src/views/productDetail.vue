@@ -15,8 +15,14 @@
           </div>
         </div>
         <div class="tag-cont">
-          <div class="logo">
-            <img :src="env.imgUrl + productDetailsInfo.logo" alt="" />
+          <div class="logo" v-if="productDetailsInfo.logo">
+            <img
+              :src="
+                (productDetailsInfo.logo.includes('https') ? '' : env.imgUrl) +
+                productDetailsInfo.logo
+              "
+              alt=""
+            />
           </div>
           <div
             class="buy"
@@ -26,7 +32,14 @@
           <!-- <div class="buy-none"></div> -->
           <div class="detail-img">
             <!-- <img v-if="index == 1" src="../assets/img/amx-11.png" alt="" /> -->
-            <img :src="productDetailsInfo.pic" alt="" />
+            <img
+              v-if="productDetailsInfo.pic"
+              :src="
+                (productDetailsInfo.pic.includes('https') ? '' : env.imgUrl) +
+                productDetailsInfo.pic
+              "
+              alt=""
+            />
             <div
               v-if="showContent"
               :class="['content', { extended: !showTab }]"

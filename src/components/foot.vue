@@ -2,7 +2,7 @@
   <div class="foot">
     <img class="my-logo" src="../assets/img/general/foot-logo.png" alt="">
     <div class="logos">
-      <img @click="goto(item,index)" v-for="(item,index) in logos" :key="index" :src="item.url" alt="">
+      <img @click="goto(item,index)" v-for="(item,index) in brand" :key="index" :src="(item.logo.includes('https') ? '' : env.imgUrl) + item.logo" alt="">
     </div>
     <!-- <p>© 2023 HARMAN International. All Rights Reserved. <br>Privacy Policy | Cookies | Terms of Use</p> -->
   </div>
@@ -13,45 +13,11 @@
   export default {
     data(){
       return {
-        logos:[
-          {
-            name:'AKG',
-            url:require('../assets/img/general/akg-logo.png')
-          },
-          {
-            name:'AMX',
-            url:require('../assets/img/general/amx-logo.png')
-          },
-          {
-            name:'BBS',
-            url:require('../assets/img/general/bss-logo.png')
-          },
-          {
-            name:'CROWN',
-            url:require('../assets/img/general/crown-logo.png')
-          },
-          {
-            name:'dbx',
-            url:require('../assets/img/general/dbx-logo.png')
-          },
-          {
-            name:'JBL PROFESSIONAL',
-            url:require('../assets/img/general/jbl-logo.png')
-          },
-          {
-            name:'Lexicon',
-            url:require('../assets/img/general/lexicon-logo.png')
-          },
-          {
-            name:'Martin',
-            url:require('../assets/img/general/martin-logo.png')
-          },
-          {
-            name:'Soundcraft',
-            url:require('../assets/img/general/soundcraft-logo.png')
-          },
-        ]
+        env: window.env,
       }
+    },
+    props: {
+      brand:Array
     },
     methods: {
       goto(item,index){
@@ -64,7 +30,7 @@
         this.$router.push({
           path:'/baikeDetail',
           query:{
-            name:item.name,
+            title:item.title,
             index:i
           }
         })

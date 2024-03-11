@@ -11,7 +11,7 @@
 
     </div>
     <div class="banner">
-      <img @click="goLink(detail.link)" :src="env.imgUrl + detail.product_pic" alt="">
+      <img @click="goLink(detail.link)" :src="(detail.product_pic.includes('https') ? '' : env.imgUrl) + detail.product_pic" alt="">
     </div>
     <div class="baike" v-if="detail.legend !== null">
       <div class="title-zone">
@@ -21,7 +21,7 @@
         </div> -->
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
           <van-swipe-item v-for="(item, index) in detail.legend" :key="index">
-            <img class="slide-img" :src="env.imgUrl + item.listpic" alt="">
+            <img class="slide-img" :src="(item.listpic.includes('https') ? '' : env.imgUrl) + item.listpic" alt="">
           </van-swipe-item>
         </van-swipe>
       </div>

@@ -12,7 +12,7 @@
       <ul class="card-list">
         <li @click="goto(item)" v-for="(item, index) in links" :key="index">
           <!-- <p v-html="item.title"></p> -->
-          <img :src="env.imgUrl + item.pic" alt="" />
+          <img :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic" alt="" />
         </li>
 
       </ul>
@@ -21,18 +21,18 @@
       <h3 class="line-title">授权店铺</h3>
       <ul class="shop-list">
         <li v-for="(item, index) in shops" :key="index">
-          <p class="annotation">
-          <div class="bg"></div>
-          <span @click="onMap(item)" style="padding-left: 0.1rem;">
-            <img class="imgCss" src="../assets/img/map-icon.png" />
-            {{ item.addr }}
-          </span>
-          <span  style="padding-right: 0.1rem;">
-            <img class="imgCss" src="../assets/img/phone-icon.png" />
-            <a :href="'tel:' + item.tel">{{ item.tel }}</a>
-          </span>
-          </p>
-          <img :src="env.imgUrl + item.pic" alt="">
+          <div class="annotation">
+            <div class="bg"></div>
+            <span @click="onMap(item)" style="padding-left: 0.1rem;">
+              <img class="imgCss" src="../assets/img/map-icon.png" />
+              {{ item.addr }}
+            </span>
+            <span  style="padding-right: 0.1rem;">
+              <img class="imgCss" src="../assets/img/phone-icon.png" />
+              <a :href="'tel:' + item.tel">{{ item.tel }}</a>
+            </span>
+          </div>
+          <img :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic" alt="">
         </li>
 
       </ul>
@@ -58,64 +58,12 @@ export default {
   },
   data() {
     return {
+      env: window.env,
       active: 0,
       navs: ["线上电商", "线下体验"],
       env: window.env,
       shops: [],
       links: [],
-      // shops: [
-      //   {
-      //     address: '杭州市西湖大道18号4楼D05',
-      //     phone: '0571-85771957',
-      //     coord: '30.246305,120.180271',
-      //     url: require('../assets/img/e-commerce/offline-icon-1.png')
-      //   },
-      //   {
-      //     address: '广州市东方国际商业广场三楼东二街302-305',
-      //     phone: '13602222018',
-      //     coord: '23.120665,113.377239',
-      //     url: require('../assets/img/e-commerce/offline-icon-2.png')
-      //   },
-      //   {
-      //     address: '香港市九龙区深水埗长沙湾道248号地铺',
-      //     phone: '852-28111259',
-      //     coord: '22.327951,114.167596',
-      //     url: require('../assets/img/e-commerce/offline-icon-3.png')
-      //   },
-      // ],
-      // links: [
-      //   {
-      //     //name:'哈曼专业旗舰店',
-      //     url: require('../assets/img/e-commerce/e-commerce-icon-1.png'),
-      //     link: 'https://shop.m.jd.com/shop/home?shopId=11593247&venderId=11875351&skuId=10050624968768&categoryId=652_828_841&sceneval=2&jxsid=16959026724906073721&_fd=jdm%2Cjdm'
-      //   },
-      //   {
-      //     //name:'HARMAN <br />音乐设备旗舰店',
-      //     url: require('../assets/img/e-commerce/e-commerce-icon-2.png'),
-      //     link: 'https://harman.tmall.com/'
-      //   },
-      //   {
-      //     //name:'JBL <br />KTV音响旗舰店',
-      //     url: require('../assets/img/e-commerce/e-commerce-icon-3.png'),
-      //     link: 'https://mall.jd.com/index-11859975.html?from=pc'
-      //   },
-      //   {
-      //     // name:'JBL<br />专业影音旗舰店',
-      //     url: require('../assets/img/e-commerce/e-commerce-icon-4.png'),
-      //     link: 'https://mall.jd.com/index-12637963.html?from=pc'
-      //   },
-      //   {
-      //     //name:'AKG<br />专业音频旗舰店',
-      //     url: require('../assets/img/e-commerce/e-commerce-icon-5.png'),
-      //     link: 'https://mall.jd.com/index-12276420.html'
-      //   },
-
-      //   {
-      //     //name:'JBL专业<br />KTV音响旗舰店',
-      //     url: require('../assets/img/e-commerce/e-commerce-icon-6.png'),
-      //     link: '抖音APP-搜索抖音号“34082895249”-“进入店铺”'
-      //   },
-      // ],
       key: 'OTABZ-VSN6Z-KM2XL-ZD4C7-UB6I2-PMBG7'
     };
   },

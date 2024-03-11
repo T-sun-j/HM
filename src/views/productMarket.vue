@@ -30,7 +30,7 @@
         :key="index"
       >
         <span>{{ item.title }}</span
-        ><img :src="env.imgUrl + item.pic" alt="" />
+        ><img :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic" alt="" />
       </a>
       <!-- <div class="market-item" @click="goPDF(index)" v-for="(item,index) in markets" :key="index">
         <span>{{ item.name }}</span><img :src="item.url" alt="">

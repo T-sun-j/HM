@@ -465,7 +465,7 @@ export default {
           this.logos = res.brand.map((item) => {
             return {
               ...item,
-              logo: env.imgUrl + item.logo,
+              logo: (item.logo.includes('https') ? '' : this.env.imgUrl) + item.logo,
               active: false,
             };
           });

@@ -12,7 +12,7 @@
     </div>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="(item,index) in focusMap" :key="index">
-        <img class="slide-img" :src="env.imgUrl+item.pic" alt="" />
+        <img class="slide-img" :src="(item.pic.includes('https') ? '' : env.imgUrl)+item.pic" alt="" />
       </van-swipe-item>
       
     </van-swipe>
@@ -25,7 +25,7 @@
       </div>
       <indexTitle>你可能感兴趣的产品优惠</indexTitle>
       <div class="ads">
-        <img v-for="(item,index) in advertisement" :src="env.imgUrl+item.pic" :key="index" alt="">
+        <img v-for="(item,index) in advertisement" :src="(item.pic.includes('https') ? '' : env.imgUrl)+item.pic" :key="index" alt="">
         
       </div>
     </div>
@@ -37,7 +37,7 @@
         <van-button size="small" color="#0064a0" type="primary">确定</van-button>
       </div>
     </van-popup>
-    <foot></foot>
+    <foot :brand="brand"></foot>
   </div>
 </template>
 
@@ -64,26 +64,27 @@ export default {
       code: "",
       checked: false,
       show:false,
-      list:[
-          {
-            title:'好唱易嗨，酣畅淋漓！ 中牟 MEET PARTY KTV',
-            // time:'中牟 MEET PARTY KTV ',
-            img:require('@/assets/img/img/case-1.png')
-          },
-          {
-            title:'声享震撼，惊艳每一次观影！ 太原铜锣湾影院',
-            // time:'太原铜锣湾影院 ',
-            img:require('@/assets/img/img/case-2.png')
-          },
-          {
-            title:'分布式音视频系统助力高效互联！ 南通万豪酒店 ',
-            // time:'南通万豪酒店 ',
-            img:require('@/assets/img/img/case-3.png')
-          }
-        ],
+      // list:[
+      //     {
+      //       title:'好唱易嗨，酣畅淋漓！ 中牟 MEET PARTY KTV',
+      //       // time:'中牟 MEET PARTY KTV ',
+      //       img:require('@/assets/img/img/case-1.png')
+      //     },
+      //     {
+      //       title:'声享震撼，惊艳每一次观影！ 太原铜锣湾影院',
+      //       // time:'太原铜锣湾影院 ',
+      //       img:require('@/assets/img/img/case-2.png')
+      //     },
+      //     {
+      //       title:'分布式音视频系统助力高效互联！ 南通万豪酒店 ',
+      //       // time:'南通万豪酒店 ',
+      //       img:require('@/assets/img/img/case-3.png')
+      //     }
+      //   ],
       focusMap:[],
       likeList:[],
-      advertisement:[]
+      advertisement:[],
+      brand:[]
     };
   },
   created(){
@@ -116,13 +117,14 @@ export default {
           const pageData = res.pageData
           Object.assign(this, {
             focusMap:pageData.focusMap,
-            // likeList:pageData.likeList,
-            advertisement:pageData.advertisement
+            likeList:pageData.likeList,
+            advertisement:pageData.advertisement,
+            brand:pageData.brand
           });
           this.likeList =pageData.likeList.map((item) => {
             return {
               ...item,
-              pic:env.imgUrl+item.pic,
+              pic:(item.pic.includes('https') ? '' : this.env.imgUrl)+item.pic,
               
             }
           });

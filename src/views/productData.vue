@@ -28,7 +28,7 @@
             :class="[logoAct == index ? 'active' : 'img_gray']"
             :key="index"
           >
-            <img :src="env.imgUrl + item.logo" alt="" />
+            <img :src="(item.logo.includes('https') ? '' : env.imgUrl) + item.logo" alt="" />
           </div>
         </div>
       </div>

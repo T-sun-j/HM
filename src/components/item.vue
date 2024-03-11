@@ -3,7 +3,7 @@
     <!-- @click="goDetail(itemdata)" -->
   <div class="item" @click="goDetail(itemdata)">
     <div class="img-box">
-      <img :src="itemdata.pic" alt="">
+      <img :src="(itemdata.pic.includes('https') ? '' : env.imgUrl) + itemdata.pic" alt="">
     </div>
     <div class="img-cont">
       <h4>{{ itemdata.title }}</h4>
