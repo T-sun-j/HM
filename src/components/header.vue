@@ -271,7 +271,7 @@ export default {
     transform: translate(-50%, -50%);
     width: 1.87rem;
     height: 1.01em;
-    background: url("../assets/img/general/top-logo-test.png") no-repeat;
+    background: url("../assets/img/general/top-logo.png") no-repeat;
     background-size: 100% 100%;
   }
   .person-icon {

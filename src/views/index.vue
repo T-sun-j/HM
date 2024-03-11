@@ -74,8 +74,8 @@
         <index-title>您可能感兴趣</index-title>
       </div>
     </div>
-    <div class="hot-list">
-      <div class="wx-box">
+    <div class="hot-list"> 
+     <!-- <div class="wx-box">
         <wx-open-launch-weapp
           style="
             display: block;
@@ -118,6 +118,7 @@
           </div>
         </wx-open-launch-weapp>
       </div>
+    -->
       <!-- @click="gotoThat(index)" -->
       <!-- <div class="hot-item">
         <item
