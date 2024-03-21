@@ -142,7 +142,7 @@
         alt=""
       />
     </div>
-    <foot v-if="brand.length !== 0" :brand="brand"></foot>
+    <foot></foot>
   </div>
 </template>
 

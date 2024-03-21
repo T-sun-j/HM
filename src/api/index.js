@@ -31,3 +31,9 @@ export function getdealercode(params) {
     params
   });
 }
+//搜索接口
+export function getUserSearch(params) {
+  return http.get("/api.php", {
+    params
+  });
+}

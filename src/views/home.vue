@@ -37,7 +37,7 @@
         <van-button size="small" color="#0064a0" type="primary">确定</van-button>
       </div>
     </van-popup>
-    <foot :brand="brand"></foot>
+    <foot></foot>
   </div>
 </template>
 

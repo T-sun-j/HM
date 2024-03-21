@@ -174,13 +174,17 @@ export default {
       });
     },
     goback() {
-      this.$router.push({
-        name: "productData",
-        query: {
-          logoAct: this.logoAct,
-          brandsecret: this.productDetailsInfo.brandsecret,
-        },
-      });
+      if (this.$route.query.type === "RESULT") {
+        this.$router.go(-1);
+      } else {
+        this.$router.push({
+          name: "productData",
+          query: {
+            logoAct: this.logoAct,
+            brandsecret: this.productDetailsInfo.brandsecret,
+          },
+        });
+      }
     },
     onDownload(filepath, filename) {
       const x = new XMLHttpRequest();

@@ -1,30 +1,34 @@
 <template>
   <div>
-  <div class="top">
-    <div class="header">
-      <div class="nav-icon" :class="{ 'nav-x': type }" @click="handleNav"></div>
-      <div @click="goClub" class="person-icon"></div>
-      <div @click="goHome" class="logo"></div>
-      <ul class="nav-list" v-if="type">
-        <li
-          v-for="(item, index) in menus"
-          :key="index"
-          @click="chooseMenu(item, index)"
-        >
-          <img :src="item.img" alt="" /><span>{{ item.name }}</span>
-        </li>
-      </ul>
+    <div class="top">
+      <div class="header">
+        <div
+          class="nav-icon"
+          :class="{ 'nav-x': type }"
+          @click="handleNav"
+        ></div>
+        <div v-if="showSearchIcon" @click="goClub" class="person-icon"></div>
+        <div @click="goHome" class="logo"></div>
+        <ul class="nav-list" v-if="type">
+          <li
+            v-for="(item, index) in menus"
+            :key="index"
+            @click="chooseMenu(item, index)"
+          >
+            <img :src="item.img" alt="" /><span>{{ item.name }}</span>
+          </li>
+        </ul>
+      </div>
+      <van-search
+        v-if="showSearch"
+        v-model="searchText"
+        placeholder="搜索"
+        input-align="center"
+        @search="onSearch"
+      />
+      <!--  -->
     </div>
-    <van-search
-      v-if="showSearch"
-      v-model="searchText"
-      placeholder="搜索"
-      input-align="center"
-    />
-    <!--  -->
-    
-  </div>
-  <ul v-if="showNav" class="nav" :class="{ top10: !showSearch }">
+    <ul v-if="showNav" class="nav" :class="{ top10: !showSearch }">
       <li
         class="nav-item"
         :class="[active == index ? 'active' : '']"
@@ -35,7 +39,7 @@
         {{ item.name }}
       </li>
     </ul>
-</div>
+  </div>
 </template>
 
 <script>
@@ -49,6 +53,7 @@ export default {
   data() {
     return {
       showSearch: false,
+      showSearchIcon: true,
       searchText: "",
       type: false,
       showNav: true,
@@ -142,27 +147,25 @@ export default {
   watch: {
     showSearch(val) {
       if (val) {
-        if(this.$route.name == 'productDetail'){
+        if (this.$route.name == "productDetail") {
           document.body.style.marginTop = "2.8rem";
           console.log(1);
         } else {
           document.body.style.marginTop = `calc(1.7rem + 54px)`;
           console.log(2);
         }
-        
       } else {
-        if(this.$route.name == 'productDetail'){
+        if (this.$route.name == "productDetail") {
           document.body.style.marginTop = "1.8rem";
           console.log(3);
         } else {
           document.body.style.marginTop = "1.7rem";
           console.log(4);
         }
-       
       }
     },
     $route: {
-      handler(val,oldVal) {
+      handler(val, oldVal) {
         this.$nextTick(() => {
           if (val.name == "productDetail") {
             this.showNav = false;
@@ -172,18 +175,18 @@ export default {
           } else {
             this.showNav = true;
             //
-            if(this.showSearch){
+            if (this.showSearch) {
               document.body.style.marginTop = `calc(1.7rem + 54px)`;
             } else {
               document.body.style.marginTop = "1.7rem";
             }
-            // 
-            
+            //
+
             console.log(6);
           }
         });
       },
-      immediate:true
+      immediate: true,
     },
   },
   activated() {
@@ -195,6 +198,11 @@ export default {
   methods: {
     handleNav() {
       this.type = !this.type;
+      if (this.type) {
+        this.showSearchIcon = false;
+      }else{
+        this.showSearchIcon = true;
+      }
     },
     chooseNav(item, index) {
       if (item.name == "学习中心") {
@@ -209,6 +217,7 @@ export default {
       }
     },
     chooseMenu(item, index) {
+      this.showSearchIcon = true;
       this.type = false;
       if (item.name == "学习中心") {
         window.open(
@@ -230,11 +239,19 @@ export default {
     },
     goClub() {
       this.showSearch = !this.showSearch;
+      this.searchText = "";
       return;
       this.type = false;
       this.active = 6;
       this.$router.push({
         name: "login",
+      });
+    },
+    onSearch() {
+      this.showSearch = false;
+      this.$router.push({
+        name: "result",
+        query: { searchText: this.searchText },
       });
     },
   },
