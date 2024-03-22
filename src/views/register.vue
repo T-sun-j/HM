@@ -26,16 +26,16 @@
         ></li>
       </ul>
       <div class="club-title">您关注我们的品牌有哪些?</div>
-      <!-- <div class="logos" v-if="logos.length!==0">
+      <div class="logos" v-if="logos.length!==0">
         <img
           @click="setOpacity(index)"
           v-for="(item, index) in logos"
           :class="[item.active ? 'active' : '']"
           :key="index"
-          :src="(item.logo.includes('https') ? '' : env.imgUrl) + item.logo"
+          :src="env.imgUrl + item.logo"
           alt=""
         />
-      </div> -->
+      </div>
       <div class="club-title">您会把我们的产品应用在哪些场景?</div>
       <ul class="things types">
         <li
@@ -443,10 +443,7 @@ export default {
   },
   created() {
     this.openid = getUrlString("openid");
-    console.log('this.openid :', this.openid);
-    console.log(window.location);
     this.clubsecret = getUrlString("secret")
-    console.log(' this.clubsecret :',  this.clubsecret);
     this.initData();
     // this.clubsecret = localStorage.getItem('clubsecret');
     // this.showZX = this.clubsecret?true:false;
@@ -465,7 +462,6 @@ export default {
       };
       getData(param).then((res) => {
         if (res.code == 0) {
-          console.log(res)
           this.logos = res.brand.map((item) => {
             return {
               ...item,
@@ -521,6 +517,7 @@ export default {
           this.$router.push({
             name:'index',
           })
+          localStorage.removeItem('clubsecret');
         } else {
           showToast(res.msg)
         }

@@ -367,7 +367,7 @@ export default {
     };
   },
   created() {
-    const secret = sessionStorage.getItem("dealersecret");
+    const secret = localStorage.getItem("dealersecret");
     const param = {
       action: "dealersecretlogin",
       dealersecret: secret,
@@ -401,7 +401,9 @@ export default {
       getData(param).then((res) => {
         if (res.code == 0) {
           showToast("提交成功");
-          sessionStorage.setItem("dealersecret", res.userData.secret);
+          localStorage.setItem("dealersecret", res.userData.secret);
+          localStorage.setItem("namer", res.userData.namer);
+          localStorage.setItem("phone", res.userData.phone);
           setTimeout(() => {
             this.$router.push({
               name: "dealer",

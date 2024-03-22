@@ -105,12 +105,14 @@ export default {
       });
     },
     jumpDealer(dealerInfo) {
-      this.coppy(dealerInfo.sharelink);
+      this.coppy(dealerInfo);
+      
     },
-    coppy(str) {
-      this.$copyText(str).then(
+    coppy(dealerInfo) {
+      this.$copyText(dealerInfo.code).then(
         function (e) {
-          showSuccessToast("内容已成功复制到剪贴板中");
+          showSuccessToast("提取码已成功复制到剪贴板中");
+          window.open(dealerInfo.link)
           console.log(e);
         },
         function (e) {

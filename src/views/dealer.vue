@@ -57,7 +57,7 @@ export default {
     initData(){
       const param = {
         action:'dealersecretlogin',
-        dealersecret:sessionStorage.getItem('secret'),
+        dealersecret:localStorage.getItem('secret'),
         
       }
       getData(param).then(res => {

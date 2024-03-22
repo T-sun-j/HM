@@ -141,7 +141,7 @@ export default {
       ],
       formParams:{
         action:'postDealerExpo',
-        secret:sessionStorage.getItem('dealersecret'),
+        secret:localStorage.getItem('dealersecret'),
         expotype:'',
         exponame:'',
         expotime:'',
@@ -189,7 +189,7 @@ export default {
     getDealerLogo(){
       const param = {
         action:'getDealerLogo',
-        secret:sessionStorage.getItem('dealersecret')
+        secret:localStorage.getItem('dealersecret')
       }
       getData(param).then(res => {
         if(res.code == 0){
@@ -204,7 +204,7 @@ export default {
     getDealerMarket(){
       const param = {
         action:'getDealerMarket',
-        secret:sessionStorage.getItem('dealersecret')
+        secret:localStorage.getItem('dealersecret')
       }
       getData(param).then(res => {
         if(res.code == 0){
@@ -219,7 +219,7 @@ export default {
     getDealerProduct(){
       const param = {
         action:'getDealerProduct',
-        secret:sessionStorage.getItem('dealersecret')
+        secret:localStorage.getItem('dealersecret')
       }
       getData(param).then(res => {
         if(res.code == 0){
