@@ -78,6 +78,7 @@
         <div class="file-zone">
           <h4>技术文档</h4>
           <ul class="file-list">
+            <p>点击下方PDF打开查看</p>
             <li
               v-for="(item, index) in productDetailsInfo.docfile"
               :key="index"
@@ -441,6 +442,10 @@ export default {
     }
     .file-list {
       padding: 0.3rem 0.3rem;
+      p{
+        font-size: 0.26rem;
+        color: #0064a0;
+      }
       li {
         font-size: 0.24rem;
 
@@ -490,7 +495,7 @@ export default {
     display: flex;
     align-items: center;
     span {
-      font-size: 0.22rem;
+      font-size: 0.3rem;
     }
     img {
       width: 0.17rem;

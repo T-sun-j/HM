@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div class="offline" v-if="active == 1">
-      <h3 class="line-title">授权店铺</h3>
+      <!-- <h3 class="line-title">授权店铺</h3> -->
       <ul class="shop-list">
         <li v-for="(item, index) in shops" :key="index">
           <div class="annotation">
@@ -68,6 +68,7 @@ export default {
     };
   },
   created() {
+    this.active = this.$route.query.active || 0;
     this.initData();
   },
   methods: {
@@ -192,7 +193,7 @@ export default {
 }
 
 .offline {
-  padding: 0 .3rem;
+  padding: .3rem .3rem 0;
 }
 
 .line-title {

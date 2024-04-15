@@ -28,7 +28,10 @@
             :class="[logoAct == index ? 'active' : 'img_gray']"
             :key="index"
           >
-            <img :src="(item.logo.includes('https') ? '' : env.imgUrl) + item.logo" alt="" />
+            <img
+              :src="(item.logo.includes('https') ? '' : env.imgUrl) + item.logo"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -112,7 +115,7 @@
             </li>
           </ul>
           <div v-else>
-            <van-empty description="目前没有产品" />
+            <van-empty description="正在建设中" />
           </div>
         </div>
       </div>
@@ -147,6 +150,7 @@ export default {
       active: 0,
       showTab: 0,
       logoAct: 0,
+      oldLogoAct: 0,
       defaultProps: {
         children: "child",
         label: "title",
@@ -209,6 +213,10 @@ export default {
                   behavior: "smooth",
                   block: "center",
                 });
+                if (this.oldLogoAct !== this.logoAct) {
+                  this.getMaterial(this.logos[this.logoAct].secret || "");
+                  this.oldLogoAct = this.logoAct;
+                }
               }
             }
           });

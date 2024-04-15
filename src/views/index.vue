@@ -3,7 +3,7 @@
     <!-- <indexHeader></indexHeader> -->
 
     <div class="slide">
-      <van-swipe class="my-swipe" :autoplay="1000" indicator-color="white">
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item>
           <img class="slide-img" src="../assets/img/banner-4.png" alt="" />
           <wx-open-launch-weapp
