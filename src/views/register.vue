@@ -32,7 +32,7 @@
           v-for="(item, index) in logos"
           :class="[item.active ? 'active' : '']"
           :key="index"
-          :src="env.imgUrl + item.logo"
+          :src="item.logo"
           alt=""
         />
       </div>
@@ -431,12 +431,7 @@ export default {
           active: false,
         },
       ],
-      logos: [
-        {
-          url: require("../assets/img/general/akg-logo.png"),
-          active: false,
-        },
-      ],
+      logos: [],
       openid: "",
       clubsecret:''
     };
@@ -462,6 +457,11 @@ export default {
       };
       getData(param).then((res) => {
         if (res.code == 0) {
+          this.email = res.userData.email;
+          this.namer = res.userData.namer;
+          this.company = res.userData.company;
+          this.openid = res.userData.openid;
+          this.curr = this.things.findIndex(item => item.title == res.userData.identity)
           this.logos = res.brand.map((item) => {
             return {
               ...item,
@@ -475,6 +475,22 @@ export default {
               active: false,
             };
           });
+          const sceneList = res.userData.scene.split(",")
+          sceneList.map(item=>{
+            this.types.map(item2=>{
+              if(item2.secret == item){
+                item2.active = true
+              }
+            })
+          })
+          const brandList = res.userData.brand.split(",")
+          brandList.map(item=>{
+            this.logos.map(item2=>{
+              if(item2.secret == item){
+                item2.active = true
+              }
+            })
+          })
         } else {
           showToast(res.msg);
         }
@@ -573,7 +589,7 @@ export default {
       getData(param).then(res => {
         if(res.code == 0){
           const secret = res.userData.secret
-          showToast('注册成功')
+          showToast(this.email!==''?"修改成功":'注册成功')
           this.$router.push({
             name:'home',
             query:{

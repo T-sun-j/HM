@@ -61,8 +61,9 @@ import indexTitle from "@/components/title.vue";
 import item from "@/components/item.vue";
 import foot from "@/components/foot.vue";
 import { getUrlString } from "@/utils/tools.js";
-import { getData, getcode } from "../api";
+import { getData } from "../api";
 import { showToast } from "vant";
+import axios from "axios";
 export default {
   components: {
     // indexHeader,
@@ -104,11 +105,11 @@ export default {
   },
   created() {
     this.clubsecret = localStorage.getItem("clubsecret");
-    if (localStorage.getItem("namer") === null) {
-      this.namer = "";
-    } else {
-      this.namer = "," + localStorage.getItem("namer");
-    }
+    // if (localStorage.getItem("namer") === null) {
+    //   this.namer = "";
+    // } else {
+    //   this.namer = "," + localStorage.getItem("namer");
+    // }
     if (!this.clubsecret) {
       this.clubsecret = getUrlString("secret");
       console.log("clubsecret--url->>>", this.clubsecret);
@@ -116,12 +117,7 @@ export default {
     if (this.clubsecret) {
       this.initData();
     } else {
-      getcode().then((res) => {
-        if (res.code == 0) {
-        } else {
-          showToast(res.msg);
-        }
-      });
+      window.location.href=this.env.baseUrl+"/getcode.php"
     }
   },
   methods: {
@@ -133,6 +129,7 @@ export default {
       getData(param).then((res) => {
         if (res.code == 0) {
           const pageData = res.pageData;
+          this.namer = res.userData.namer;
           Object.assign(this, {
             focusMap: pageData.focusMap,
             likeList: pageData.likeList,
@@ -146,6 +143,7 @@ export default {
                 (item.pic.includes("https") ? "" : this.env.imgUrl) + item.pic,
             };
           });
+          localStorage.setItem('clubsecret',res.userData.secret);
         } else {
           showToast(res.msg);
         }

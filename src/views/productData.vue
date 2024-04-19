@@ -519,13 +519,14 @@ export default {
   color: #fff;
   padding: 0;
   margin: 0;
+  font-size: 0.24rem;
   p {
     // line-height: 0.6rem;
     // margin:0.3rem 0;
     padding: 0.3rem 0;
   }
   .vanPad {
-    padding: 0.2rem 0.2rem !important;
+    padding: 0.2rem 0.2rem 0.2rem 0.4rem !important;
   }
 }
 /deep/.van-collapse-item__title--expanded {
