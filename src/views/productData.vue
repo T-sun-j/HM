@@ -183,7 +183,6 @@ export default {
     this.getMaterial(this.$route.query.brandsecret || "");
     this.logoAct = this.$route.query.logoAct || 5;
   },
-
   methods: {
     getMaterial(secret) {
       const param = {

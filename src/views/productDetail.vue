@@ -101,7 +101,7 @@
             <van-icon name="arrow" />
           </div>
         </div>
-        <div class="cases" v-if="productDetailsInfo.senes.length !== 0">
+        <div class="cases" v-if="productDetailsInfo.senes==[]">
           <indexTitle>精选案例推荐</indexTitle>
           <div class="case-list">
             <div v-for="(item, index) in productDetailsInfo.senes" :key="index">
@@ -142,6 +142,7 @@ export default {
       secret: 0,
       productDetailsInfo: {},
       logoAct: 0,
+      // isWX:null
     };
   },
   created() {
@@ -151,7 +152,9 @@ export default {
     this.getProductDetails();
     this.showContent = false;
   },
-  mounted() {},
+  // mounted(){
+  //   this.isWX = this.isWxBrowser();
+  // },
   methods: {
     getProductDetails() {
       const param = {
@@ -187,6 +190,21 @@ export default {
         });
       }
     },
+    // isWxBrowser() {
+    //   const ua = navigator.userAgent.toLowerCase();
+    //   return ua.match(/microMessenger/i) == "micromessenger" ? true : false;
+    // },
+    // onDownload(){
+    //   if (this.isWx) {
+    //     Dialog.alert({
+    //       title: "提示",
+    //       message: "请点击右上角，在浏览器打开页面下载！"
+    //     }).then(() => {});
+    //   } else {
+    //     //如果在浏览器环境，执行文件下载
+    //     this.toOnDownload();
+    //   }
+    // },
     onDownload(filepath, filename) {
       const x = new XMLHttpRequest();
       x.open("GET", filepath, true);
