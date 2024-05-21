@@ -13,16 +13,16 @@
     </div>
     <div class="market-list">
       <!-- @click="goDetail(item)" -->
-      <!-- <span
-        @click="onDownload(item.docfile, item.title)"
+      <span
         class="market-item"
         v-for="(item, index) in markets"
         :key="index"
+        @click="onDownload(item.docfile, item.title)"
       >
-        <span>{{ item.title }}</span
-        ><img :src="env.imgUrl + item.pic" alt="" />
-      </span> -->
-      <a
+        <span>{{ item.title }}</span>
+        <img :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic" alt="" />
+      </span>
+      <!-- <a
         class="market-item"
         :href="item.docfile"
         download
@@ -31,7 +31,7 @@
       >
         <span>{{ item.title }}</span
         ><img :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic" alt="" />
-      </a>
+      </a> -->
       <!-- <div class="market-item" @click="goPDF(index)" v-for="(item,index) in markets" :key="index">
         <span>{{ item.name }}</span><img :src="item.url" alt="">
       </div> -->

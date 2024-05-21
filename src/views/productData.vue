@@ -149,7 +149,7 @@ export default {
       searchText: "",
       active: 0,
       showTab: 0,
-      logoAct: 0,
+      logoAct: 5,
       oldLogoAct: 0,
       defaultProps: {
         children: "child",
@@ -181,7 +181,7 @@ export default {
   },
   created() {
     this.getMaterial(this.$route.query.brandsecret || "");
-    this.logoAct = this.$route.query.logoAct || 0;
+    this.logoAct = this.$route.query.logoAct || 5;
   },
 
   methods: {
@@ -213,6 +213,7 @@ export default {
                   behavior: "smooth",
                   block: "center",
                 });
+                
                 if (this.oldLogoAct !== this.logoAct) {
                   this.getMaterial(this.logos[this.logoAct].secret || "");
                   this.oldLogoAct = this.logoAct;
@@ -317,7 +318,7 @@ export default {
           },
         });
       } else {
-        showToast("暂无产品");
+        showToast("正在建设中");
       }
     },
     goto(num) {
