@@ -17,7 +17,7 @@
         class="market-item"
         v-for="(item, index) in markets"
         :key="index"
-        @click="onDownload(item.docfile, item.title)"
+        @click="toOnDownload(item.docfile)"
       >
         <span>{{ item.title }}</span>
         <img :src="(item.pic.includes('https') ? '' : env.imgUrl) + item.pic" alt="" />
@@ -79,6 +79,9 @@ export default {
           showToast(res.msg);
         }
       });
+    },
+    toOnDownload(filepath){
+      window.open(this.env.baseUrl+filepath)
     },
     onDownload(filepath, filename) {
       const x = new XMLHttpRequest();

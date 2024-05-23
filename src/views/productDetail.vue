@@ -84,7 +84,8 @@
               :key="index"
             >
               <img src="../assets/img/pdf.png" alt="" />
-              <span @click="onDownload(item.listpic, item.title)">{{
+              <!-- <span @click="onDownload(item.listpic, item.title)">{{ -->
+              <span @click="onDownload1(item.listpic)">{{
                 item.title
               }}</span>
               <!-- <a :href="item.listpic" download>{{ item.title }}</a> -->
@@ -205,6 +206,9 @@ export default {
     //     this.toOnDownload();
     //   }
     // },
+    onDownload1(filepath){
+      window.open(this.env.baseUrl+filepath)
+    },
     onDownload(filepath, filename) {
       const x = new XMLHttpRequest();
       x.open("GET", filepath, true);
