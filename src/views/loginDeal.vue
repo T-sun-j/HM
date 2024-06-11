@@ -7,6 +7,23 @@
     </div>
     <van-cell-group inset>
       <van-field
+        v-model="areaCode"
+        class="area-code"
+        readonly
+        label=""
+        placeholder="+86"
+        @click="showPicker = true"
+      />
+      <van-popup v-model:show="showPicker" round position="bottom">
+        <van-picker
+          :columns="columns"
+          @cancel="showPicker = false"
+          @confirm="onConfirm"
+        />
+      </van-popup>
+      <span class="area-code-bar"></span>
+      <van-field
+        class="phone"
         v-model="phone"
         center
         clearable
@@ -343,12 +360,13 @@
 
 <script>
 // import indexHeader from "@/components/header.vue";
-import { showToast } from "vant";
+import { showToastPicker, Popup } from "vant";
 import indexTitle from "@/components/title.vue";
 import item from "@/components/item.vue";
 import foot from "@/components/foot.vue";
 import { getdealercode, getData } from "../api";
 import { setItem, getItem } from "../utils/storage";
+// import { Picker,Popup  } from "vant";
 export default {
   components: {
     // indexHeader,
@@ -364,6 +382,15 @@ export default {
       checked: false,
       show: false,
       time: 0,
+      columns: [
+        { text: "+86", value: "86" },
+        { text: "+852", value: "852" },
+        { text: "+853", value: "853" },
+        { text: "+886", value: "886" },
+      ],
+      showPicker: false,
+      areaCode: "",
+      areaCodeValue: "",
     };
   },
   created() {
@@ -386,6 +413,15 @@ export default {
     }
   },
   methods: {
+    onConfirm(data) {
+      this.showPicker = false;
+      this.areaCode = data.selectedOptions[0].text;
+      this.areaCodeValue = data.selectedValues[0];
+      console.log('this.areaCodeValue :', this.areaCodeValue);
+      console.log('this.areaCode :', this.areaCode);
+      console.log('data :', data);
+    },
+
     submit() {
       if (!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(this.phone)) {
         return showToast("请输入正确的手机号格式");
@@ -426,6 +462,7 @@ export default {
       const param = {
         action: "getdealercode",
         phone: this.phone,
+        areaCode: this.areaCodeValue,
       };
       getData(param).then((res) => {
         if (res.code == 0) {
@@ -489,5 +526,22 @@ export default {
   box-sizing: border-box;
   height: 80vh;
   overflow-y: auto;
+}
+.area-code {
+  width: 20%;
+  display: inline-block;
+  padding-bottom:0.23rem;
+}
+.phone {
+  width: 79%;
+  display: inline-block;
+}
+.area-code-bar {
+  display: inline-block;
+  width: 0.01rem;
+  height: 100%;
+  padding: 0.2rem 0;
+  margin: 0.2rem 0;
+  border-right: 1px solid #ebedf0;
 }
 </style>
