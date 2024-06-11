@@ -360,6 +360,7 @@
 
 <script>
 // import indexHeader from "@/components/header.vue";
+import { showToast } from "vant";
 import { showToastPicker, Popup } from "vant";
 import indexTitle from "@/components/title.vue";
 import item from "@/components/item.vue";
