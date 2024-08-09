@@ -267,10 +267,10 @@ export default {
   },
   methods: {
     getCode(){
-      if(!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(this.phone)){
-        console.log(999)
-        return showToast('请输入正确的手机号格式')
-      }
+      // if(!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(this.phone)){
+      //   console.log(999)
+      //   return showToast('请输入正确的手机号格式')
+      // }
       this.showCode = false;
       this.time = 5*1000;
      
@@ -290,9 +290,9 @@ export default {
       this.showCode = true;
     },
     submit(){
-      if(!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(this.phone)){
-        return showToast('请输入正确的手机号格式')
-      } 
+      // if(!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(this.phone)){
+      //   return showToast('请输入正确的手机号格式')
+      // } 
       if(!this.code.trim().length){
         return showToast('请输入正确的验证码')
       }
