@@ -67,13 +67,13 @@
               :key="index"
             >
               <span class="divider"></span>
-              <span class="content">{{ item.title }}</span>
+              <span class="content" v-html="item.title"></span>
             </li>
           </ul>
-          <p
+          <!-- <p
             v-for="(item, index) in productDetailsInfo.feature"
             :key="index"
-          ></p>
+          ></p> -->
         </div>
         <div class="file-zone">
           <h4>技术文档</h4>

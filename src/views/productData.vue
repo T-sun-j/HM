@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <indexHeader :active="0"></indexHeader> -->
     <div class="pro-nav">
       <div
         class="pro-item"
@@ -13,12 +12,6 @@
       </div>
     </div>
     <div class="brand">
-      <!-- <van-search
-    @focus="goResult"
-      v-model="searchText"
-      placeholder="产品关键字搜索"
-      input-align="center"
-    /> -->
       <div class="logo-box">
         <div class="logos" ref="logoBox">
           <div
@@ -35,8 +28,7 @@
           </div>
         </div>
       </div>
-
-      <div v-if="show" class="menus">
+      <div class="menus">
         <div class="menu-bar">
           <div v-for="item in firstLevelData" :key="item.secret">
             <div class="bar-list" v-if="item.child.length === 0">
@@ -48,7 +40,11 @@
               </p>
             </div>
             <van-collapse v-model="activeName" accordion v-else>
-              <van-collapse-item :title="item.title" :name="item.secret">
+              <van-collapse-item 
+                :title="item.title" 
+                :name="item.secret"
+                :class="{'parent-active': isParentActive(item)}"
+              >
                 <div>
                   <p
                     v-for="itemChild in item.child"
@@ -123,7 +119,6 @@
     <foot></foot>
   </div>
 </template>
-
 <script>
 import indexHeader from "@/components/header.vue";
 import indexTitle from "@/components/title.vue";
@@ -131,7 +126,6 @@ import item from "@/components/item.vue";
 import { showToast } from "vant";
 import foot from "@/components/foot.vue";
 import { getMaterial, getMaterialproductlist } from "@/api/product.js";
-// import { proData } from "./json";
 export default {
   components: {
     indexHeader,
@@ -142,8 +136,6 @@ export default {
   data() {
     return {
       env: window.env,
-      show: true,
-      // proData,
       firstLevelData: [],
       navs: ["按品牌分类", "画册下载"],
       searchText: "",
@@ -156,27 +148,10 @@ export default {
         label: "title",
       },
       lowerData: [],
-      // list: [
-      //   {
-      //     title: "你注册，我保障！",
-      //     time: "2018年月10日",
-      //     img: require("@/assets/img/home-news-1.png"),
-      //   },
-      //   {
-      //     title: "LIFESTYLE AD ",
-      //     time: "2018年月12日",
-      //     img: require("@/assets/img/home-news-2.png"),
-      //   },
-      //   {
-      //     title: "PARTNERSHIP LOCKUP ",
-      //     time: "2018年月11日",
-      //     img: require("@/assets/img/home-news-3.png"),
-      //   },
-      // ],
       logos: [],
-      activeName: "",
+      activeName: localStorage.getItem("activeItemIndex") || "",
       active: 0,
-      activeItemIndex: "",
+      activeItemIndex: localStorage.getItem("activeItemIndex") || "",
     };
   },
   created() {
@@ -184,6 +159,11 @@ export default {
     this.logoAct = this.$route.query.logoAct || 5;
   },
   methods: {
+    // 判断父级是否应该展开
+    isParentActive(item) {
+      if(!item.child) return false;
+      return item.child.some(child => child.secret === this.activeItemIndex);
+    },
     getMaterial(secret) {
       const param = {
         action: "material",
@@ -191,15 +171,33 @@ export default {
       if (secret) {
         param.brand_secret = secret;
       }
-
+    
       getMaterial(param).then((res) => {
         if (res) {
           this.firstLevelData = res.typeList;
-          // this.activeItemIndex = this.firstLevelData[0].secret;
           res.productList.map((item) => (item.isProduct = true));
           this.lowerData.child = JSON.parse(JSON.stringify(res.productList));
           this.logos = res.brand;
           this.$nextTick(() => {
+            const savedSecret = localStorage.getItem("activeItemIndex");
+            if (savedSecret) {
+              let found = this.firstLevelData.find(item => item.secret === savedSecret);
+              if (found) {
+                this.activeName = savedSecret;
+                this.handleShow(found);
+              } else {
+                for (let item of this.firstLevelData) {
+                  if (item.child && item.child.length) {
+                    let child = item.child.find(child => child.secret === savedSecret);
+                    if (child) {
+                      this.activeName = item.secret;
+                      this.handleShow(child);
+                      break;
+                    }
+                  }
+                }
+              }
+            }
             const logoBox = this.$refs.logoBox;
             if (logoBox) {
               const logoItems = logoBox.getElementsByClassName("logo-item");
@@ -212,7 +210,7 @@ export default {
                   behavior: "smooth",
                   block: "center",
                 });
-                
+    
                 if (this.oldLogoAct !== this.logoAct) {
                   this.getMaterial(this.logos[this.logoAct].secret || "");
                   this.oldLogoAct = this.logoAct;
@@ -228,7 +226,6 @@ export default {
     setOpacity(item, index) {
       this.logoAct = index;
       this.getMaterial(item.secret);
-      // this.firstLevelData = this.proData[index];
     },
     changeTab(index) {
       this.active = index;
@@ -241,7 +238,15 @@ export default {
     async handleShow(data) {
       this.lowerData = [];
       this.lowerData = JSON.parse(JSON.stringify(data));
-      this.activeItemIndex = data.secret;
+      this.activeItemIndex = data.secret; // 只高亮当前点击项
+      // 查找并设置父级的secret作为activeName
+      for(let item of this.firstLevelData) {
+        if(item.child && item.child.some(child => child.secret === data.secret)) {
+          this.activeName = item.secret;
+          break;
+        }
+      }
+      localStorage.setItem("activeItemIndex", this.activeItemIndex);
       if (this.lowerData.child.length == 0) {
         const res = await this.getMaterialproductlist(data);
         if (res) {
@@ -371,22 +376,13 @@ export default {
   overflow-y: scroll;
   display: flex;
   padding-bottom: 0.2rem;
-  // .active {
-  //   box-shadow: 0 5px 5px -5px grey, 0 -5px 5px -5px grey, 5px 0 5px -5px grey,
-  //     -5px 0 5px -5px grey;
-  // }
   .logo-item {
     width: 1.1rem;
     height: 1.1rem;
     padding: 0.1rem;
     display: inline-block;
     border: 0.01rem solid #fbf7f7;
-    // border-bottom: 1px solid #bababa;
     flex-shrink: 0;
-
-    &:last-child {
-      //border: none;
-    }
 
     img {
       width: 100%;
@@ -438,8 +434,6 @@ export default {
     .vanPad {
       padding: 0 0.2rem;
     }
-    // border-right: 1px solid #717171;
-    // border-bottom: 1px solid #717171;
     .bar-list {
       border-top: 1px solid #fff;
       background-color: #bed0e1;
@@ -458,7 +452,6 @@ export default {
   .menu-cont {
     width: 60%;
     padding-left: 0.2rem;
-
     font-size: 0.24rem;
 
     .pro-list {
@@ -488,7 +481,6 @@ export default {
         border-bottom: 1px solid #7bafc9;
       }
       .title3 {
-        // height: 0.6rem;
         background-color: #fff;
         padding: 0.1rem 0.1rem 0.1rem 0.4rem;
         display: flex;
@@ -507,13 +499,14 @@ export default {
 /deep/.van-collapse-item__title {
   background: #bed0e1;
   color: #000;
-  // height: 0.6rem;
   line-height: 0.4rem;
   border-top: 0.01rem solid #fff;
 }
+
 /deep/.van-collapse-item__wrapper {
   margin: 0 !important;
 }
+
 /deep/.van-collapse-item__content {
   background: #0064a0;
   color: #fff;
@@ -521,31 +514,31 @@ export default {
   margin: 0;
   font-size: 0.24rem;
   p {
-    // line-height: 0.6rem;
-    // margin:0.3rem 0;
     padding: 0.3rem 0;
   }
   .vanPad {
     padding: 0.2rem 0.2rem 0.2rem 0.4rem !important;
   }
 }
+
 /deep/.van-collapse-item__title--expanded {
   background: #0064a0;
   color: #fff;
 }
-/deep/ .van-icon {
-  // color: #fff;
-}
+
 .img_gray {
-  // -webkit-filter: grayscale(50%);
-  // -moz-filter: grayscale(50%);
-  // -ms-filter: grayscale(50%);
-  // -o-filter: grayscale(50%);
   filter: brightness(0);
-  // filter: gray;
   opacity: 0.3;
 }
+
 /deep/.van-cell__title {
   font-size: 0.24rem;
+}
+
+/deep/.parent-active {
+  .van-collapse-item__title {
+    background: #0064a0;
+    color: #fff;
+  }
 }
 </style>
