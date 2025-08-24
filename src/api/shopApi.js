@@ -22,3 +22,9 @@ export function getOfflineStore(params) {
     params
   });
 }
+
+export function searhdistributor(params) {
+  return http.get("/api.php", {
+    params
+  });
+}

@@ -125,13 +125,19 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "list" */ "../views/list.vue"),
       },
+      
       {
         path: "/result",
         name: "result",
         component: () =>
           import(/* webpackChunkName: "result" */ "../views/result.vue"),
       },
-      
+      {
+        path: "/qrcode-reader",
+        name: "qrcode-reader",
+        component: () =>
+          import(/* webpackChunkName: "qrcode-reader" */ "../views/qrcode-reader.vue"),
+      },
     ],
   },
   {
