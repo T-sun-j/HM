@@ -117,7 +117,7 @@ import indexTitle from "@/components/title.vue";
 import item from "@/components/item.vue";
 import foot from "@/components/foot.vue";
 import { showToast, showSuccessToast, showFailToast } from 'vant';
-import { getOnlineStore, getOfflineStore } from "../api/shopApi";
+import { getOnlineStore, getOfflineStore, searhdistributor } from "../api/shopApi";
 
 export default {
   components: {
