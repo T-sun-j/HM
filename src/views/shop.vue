@@ -51,7 +51,7 @@
             或
           </div>
           <div @click="onScanQRCode" style="display: flex; flex-direction: column; align-items: center; cursor: pointer;">
-            <img src="@/assets/img/code.png" alt="scan qr" style="width: 1.2rem; height: 1.2rem; margin-bottom: 0.08rem;" />
+            <img src="@/assets/img/code.png" alt="scan qr" style="width: 1.6rem; height: 1.6rem; margin-bottom: 0.08rem;" />
             <div style="color: #2a78b6; font-size: 0.24rem; margin-top: 0.2rem; font-weight: bold;">点击扫描二维码</div>
           </div>
         </div>
@@ -118,6 +118,7 @@ import item from "@/components/item.vue";
 import foot from "@/components/foot.vue";
 import { showToast, showSuccessToast, showFailToast } from 'vant';
 import { getOnlineStore, getOfflineStore, searhdistributor } from "../api/shopApi";
+import { Html5QrcodeScanner, Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode";
 
 export default {
   components: {
@@ -236,8 +237,262 @@ export default {
       window.open(`https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${item.latitude};title:${item.title};addr:${item.addr}&key=${this.key}&referer=${this.key}`)
     },
     onScanQRCode() {
+      // 检查浏览器是否支持getUserMedia API
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showToast('您的浏览器不支持摄像头功能，请使用其他方式查询');
+        return;
+      }
+
+      // 先请求相机权限
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          // 权限获取成功，关闭流并继续创建扫描界面
+          stream.getTracks().forEach(track => track.stop());
+          this.createScannerInterface();
+        })
+        .catch((error) => {
+          console.error('相机权限请求失败:', error);
+          showToast('请允许访问相机以使用扫码功能');
+        });
+    },
     
+    createScannerInterface() {
+      // 创建一个弹出层来显示扫码界面
+      const scannerDiv = document.createElement('div');
+      scannerDiv.style.position = 'fixed';
+      scannerDiv.style.top = '0';
+      scannerDiv.style.left = '0';
+      scannerDiv.style.width = '100%';
+      scannerDiv.style.height = '100%';
+      scannerDiv.style.backgroundColor = '#fff';
+      scannerDiv.style.zIndex = '9999';
+      scannerDiv.id = 'qr-scanner-container';
       
+      // 添加标题
+      const titleDiv = document.createElement('div');
+      titleDiv.style.width = '100%';
+      titleDiv.style.height = '0.8rem';
+      titleDiv.style.backgroundColor = '#0064a0';
+      titleDiv.style.color = '#fff';
+      titleDiv.style.fontSize = '0.32rem';
+      titleDiv.style.fontWeight = 'bold';
+      titleDiv.style.textAlign = 'center';
+      titleDiv.style.lineHeight = '0.8rem';
+      titleDiv.style.position = 'relative';
+      titleDiv.innerText = '扫描二维码';
+      
+      // 添加返回按钮
+      const backButton = document.createElement('div');
+      backButton.style.position = 'absolute';
+      backButton.style.left = '0.2rem';
+      backButton.style.top = '0';
+      backButton.style.height = '0.8rem';
+      backButton.style.lineHeight = '0.8rem';
+      backButton.style.fontSize = '0.28rem';
+      backButton.style.color = '#fff';
+      backButton.innerText = '返回';
+      backButton.onclick = () => {
+        if (this.html5QrCode) {
+          this.html5QrCode.stop().then(() => {
+            document.body.removeChild(scannerDiv);
+            this.html5QrCode = null;
+          }).catch(err => {
+            console.error('停止扫描失败:', err);
+            document.body.removeChild(scannerDiv);
+            this.html5QrCode = null;
+          });
+        } else {
+          document.body.removeChild(scannerDiv);
+        }
+      };
+      titleDiv.appendChild(backButton);
+      scannerDiv.appendChild(titleDiv);
+      
+      // 添加扫码区域
+      const qrRegion = document.createElement('div');
+      qrRegion.id = 'qr-code-full-region';
+      qrRegion.style.width = '100%';
+      qrRegion.style.height = 'calc(100% - 1.6rem)';
+      qrRegion.style.paddingTop = '0.2rem';
+      qrRegion.style.display = 'flex';
+      qrRegion.style.flexDirection = 'column';
+      qrRegion.style.justifyContent = 'center';
+      qrRegion.style.alignItems = 'center';
+      qrRegion.style.overflow = 'hidden';
+      scannerDiv.appendChild(qrRegion);
+      
+      // 添加扫描提示
+      const scanTip = document.createElement('div');
+      scanTip.style.position = 'absolute';
+      scanTip.style.top = '1rem';
+      scanTip.style.left = '0';
+      scanTip.style.width = '100%';
+      scanTip.style.textAlign = 'center';
+      scanTip.style.color = '#0064a0';
+      scanTip.style.fontSize = '0.24rem';
+      scanTip.style.padding = '0.2rem';
+      scanTip.innerText = '请将二维码放入框内，即可自动扫描';
+      qrRegion.appendChild(scanTip);
+      
+      // 添加底部操作区域
+      const bottomArea = document.createElement('div');
+      bottomArea.style.position = 'absolute';
+      bottomArea.style.bottom = '0';
+      bottomArea.style.left = '0';
+      bottomArea.style.width = '100%';
+      bottomArea.style.height = '1.2rem';
+      bottomArea.style.backgroundColor = '#f5f5f5';
+      bottomArea.style.display = 'flex';
+      bottomArea.style.flexDirection = 'column';
+      bottomArea.style.justifyContent = 'center';
+      bottomArea.style.alignItems = 'center';
+      bottomArea.style.padding = '0.1rem 0';
+      
+      // 添加图片文件扫描选项
+      const fileInputContainer = document.createElement('div');
+      fileInputContainer.style.width = '80%';
+      fileInputContainer.style.height = '0.6rem';
+      fileInputContainer.style.marginBottom = '0.1rem';
+      fileInputContainer.style.display = 'flex';
+      fileInputContainer.style.justifyContent = 'center';
+      fileInputContainer.style.alignItems = 'center';
+      fileInputContainer.style.backgroundColor = '#2a78b6';
+      fileInputContainer.style.color = '#fff';
+      fileInputContainer.style.borderRadius = '0.3rem';
+      fileInputContainer.style.fontSize = '0.28rem';
+      fileInputContainer.style.cursor = 'pointer';
+      fileInputContainer.innerText = '从相册选择图片';
+      
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.style.display = 'none';
+      fileInput.onchange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const imageFile = e.target.files[0];
+          
+          // 使用Html5Qrcode扫描图片文件
+          const html5QrCode = new Html5Qrcode('qr-code-full-region');
+          html5QrCode.scanFile(imageFile, true)
+            .then(decodedText => {
+              // 清理扫描器
+              if (this.html5QrCode) {
+                this.html5QrCode.stop().then(() => {
+                  document.body.removeChild(scannerDiv);
+                  this.html5QrCode = null;
+                  
+                  // 处理扫描结果
+                  this.dealerTitle = decodedText;
+                  this.onDealerSearch();
+                }).catch(err => {
+                  console.error('停止扫描失败:', err);
+                  document.body.removeChild(scannerDiv);
+                  this.html5QrCode = null;
+                  
+                  // 处理扫描结果
+                  this.dealerTitle = decodedText;
+                  this.onDealerSearch();
+                });
+              } else {
+                document.body.removeChild(scannerDiv);
+                
+                // 处理扫描结果
+                this.dealerTitle = decodedText;
+                this.onDealerSearch();
+              }
+            })
+            .catch(err => {
+              console.error('图片扫描失败:', err);
+              showToast('无法从图片中识别二维码，请尝试其他图片或使用相机扫描');
+            });
+        }
+      };
+      
+      fileInputContainer.onclick = () => {
+        fileInput.click();
+      };
+      
+      fileInputContainer.appendChild(fileInput);
+      bottomArea.appendChild(fileInputContainer);
+      
+      // 添加取消按钮
+      const closeButton = document.createElement('div');
+      closeButton.style.width = '80%';
+      closeButton.style.height = '0.6rem';
+      closeButton.style.lineHeight = '0.6rem';
+      closeButton.style.backgroundColor = '#0064a0';
+      closeButton.style.color = '#fff';
+      closeButton.style.borderRadius = '0.3rem';
+      closeButton.style.fontSize = '0.28rem';
+      closeButton.style.textAlign = 'center';
+      closeButton.style.cursor = 'pointer';
+      closeButton.innerText = '关闭';
+      closeButton.onclick = () => {
+        if (this.html5QrCode) {
+          this.html5QrCode.stop().then(() => {
+            document.body.removeChild(scannerDiv);
+            this.html5QrCode = null;
+          }).catch(err => {
+            console.error('停止扫描失败:', err);
+            document.body.removeChild(scannerDiv);
+            this.html5QrCode = null;
+          });
+        } else {
+          document.body.removeChild(scannerDiv);
+        }
+      };
+      bottomArea.appendChild(closeButton);
+      scannerDiv.appendChild(bottomArea);
+      
+      // 添加到body
+      document.body.appendChild(scannerDiv);
+      
+      try {
+        // 创建HTML5 QR扫描器
+        this.html5QrCode = new Html5Qrcode('qr-code-full-region');
+        
+        // 配置相机选项，优先使用后置摄像头
+        const config = {
+          fps: 15, // 提高帧率以获得更流畅的扫描体验
+          qrbox: { width: 250, height: 250 },
+          aspectRatio: window.innerWidth / window.innerHeight,
+          formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+          // 优先使用后置摄像头
+          facingMode: "environment"
+        };
+        
+        // 启动相机并开始扫描
+        this.html5QrCode.start(
+          { facingMode: "environment" }, // 指定使用后置摄像头
+          config,
+          (decodedText) => {
+            // 停止扫描
+            this.html5QrCode.stop();
+            
+            // 移除扫描器DOM
+            document.body.removeChild(scannerDiv);
+            this.html5QrCode = null;
+            
+            // 处理扫描结果
+            this.dealerTitle = decodedText;
+            
+            // 自动执行查询
+            this.onDealerSearch();
+          },
+          (errorMessage) => {
+            // 处理错误，但不停止扫描
+            console.log(errorMessage);
+          }
+        ).catch((err) => {
+          console.error('启动相机失败:', err);
+          showToast('无法启动相机，请检查相机权限设置');
+          document.body.removeChild(scannerDiv);
+        });
+      } catch (error) {
+        console.error('初始化QR扫描器失败:', error);
+        showToast('无法启动扫码功能，请稍后再试');
+        document.body.removeChild(scannerDiv);
+      }
     },
 
   },
