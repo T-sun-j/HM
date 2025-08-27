@@ -62,7 +62,7 @@
           <p class="dealer-result-title" style="font-weight: bold; font-size: 0.28rem; margin: 0; flex: none;">查询结果</p>
           <span class="dealer-back" @click="resetDealer"
             style="margin-left: auto; color: #2a78b6; font-size: 0.22rem; display: flex; align-items: center; cursor: pointer;">
-            <van-icon name="arrow-left" style="font-size: 0.32rem; margin-right: 0.04rem; color: #2a78b6; font-weight: bold;" />
+            <img src="@/assets/img/left.svg" style="width: 0.26rem; height: 0.26rem; margin-right: 0.04rem;" />
             <span style="color: #2a78b6; font-size: 0.24rem; font-weight: bold;">返回</span>
           </span>
         </div>
@@ -76,7 +76,7 @@
             属于哈曼授权经销商，可放心购买。
           </p>
           <ul class="dealer-info" style="color: #888; font-size: 0.22rem; line-height: 1.7;">
-            <li style="margin-bottom: 0.02rem;font-size: 0.22rem; ">地址: {{ dealerResult.dizhi }}</li>
+            <li style="margin-bottom: 0.02rem;font-size: 0.22rem; " @click="onDizhi(dealerResult.dizhi)">地址: {{ dealerResult.dizhi }}</li>
             <li style="margin-bottom: 0.02rem;font-size: 0.22rem; ">联系人: {{ dealerResult.chuanzhen }}</li>
             <li style="margin-bottom: 0.02rem;font-size: 0.22rem; ">联系方式: {{ dealerResult.shouji }}</li>
             <li>邮箱: <span style="color: #888;font-size: 0.22rem; ">{{ dealerResult.mail }}</span></li>
@@ -192,10 +192,10 @@ export default {
       };
       searhdistributor(params).then(res => {
         if (res && res.code == 0) {
-          this.company = this.dealerTitle;
+          if(this.dealerTitle){
+            this.company = this.dealerTitle;
+          }
           this.dealerResult = res.dataList[0] || null;
-          console.log(res.dataList)
-          console.log(this.company)
         } else {
           showToast(res.msg || '查询失败');
         }
@@ -226,15 +226,19 @@ export default {
     coppy(str) {
       this.$copyText(str).then(function (e) {
         showSuccessToast('内容已成功复制到剪贴板中')
-        console.log(e)
-      }, function (e) {
+
+      }, function () {
         showFailToast('Can not copy')
-        console.log(e)
+
       })
 
     },
     onMap(item) {
+      console.log(item,'item')
       window.open(`https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${item.latitude};title:${item.title};addr:${item.addr}&key=${this.key}&referer=${this.key}`)
+    },
+    onDizhi(dizhi) {
+      window.open(`https://apis.map.qq.com/uri/v1/search?keyword=${dizhi}&region= &referer=${this.key}`)
     },
     onScanQRCode() {
       // 检查浏览器是否支持getUserMedia API
@@ -295,11 +299,9 @@ export default {
         if (this.html5QrCode) {
           this.html5QrCode.stop().then(() => {
             document.body.removeChild(scannerDiv);
-            this.html5QrCode = null;
           }).catch(err => {
             console.error('停止扫描失败:', err);
             document.body.removeChild(scannerDiv);
-            this.html5QrCode = null;
           });
         } else {
           document.body.removeChild(scannerDiv);
@@ -348,101 +350,7 @@ export default {
       bottomArea.style.alignItems = 'center';
       bottomArea.style.padding = '0.1rem 0';
       
-      // 添加图片文件扫描选项
-      const fileInputContainer = document.createElement('div');
-      fileInputContainer.style.width = '80%';
-      fileInputContainer.style.height = '0.6rem';
-      fileInputContainer.style.marginBottom = '0.1rem';
-      fileInputContainer.style.display = 'flex';
-      fileInputContainer.style.justifyContent = 'center';
-      fileInputContainer.style.alignItems = 'center';
-      fileInputContainer.style.backgroundColor = '#2a78b6';
-      fileInputContainer.style.color = '#fff';
-      fileInputContainer.style.borderRadius = '0.3rem';
-      fileInputContainer.style.fontSize = '0.28rem';
-      fileInputContainer.style.cursor = 'pointer';
-      fileInputContainer.innerText = '从相册选择图片';
-      
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*';
-      fileInput.style.display = 'none';
-      fileInput.onchange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-          const imageFile = e.target.files[0];
-          
-          // 使用Html5Qrcode扫描图片文件
-          const html5QrCode = new Html5Qrcode('qr-code-full-region');
-          html5QrCode.scanFile(imageFile, true)
-            .then(decodedText => {
-              // 清理扫描器
-              if (this.html5QrCode) {
-                this.html5QrCode.stop().then(() => {
-                  document.body.removeChild(scannerDiv);
-                  this.html5QrCode = null;
-                  
-                  // 处理扫描结果
-                  this.dealerTitle = decodedText;
-                  this.onDealerSearch();
-                }).catch(err => {
-                  console.error('停止扫描失败:', err);
-                  document.body.removeChild(scannerDiv);
-                  this.html5QrCode = null;
-                  
-                  // 处理扫描结果
-                  this.dealerTitle = decodedText;
-                  this.onDealerSearch();
-                });
-              } else {
-                document.body.removeChild(scannerDiv);
-                
-                // 处理扫描结果
-                this.dealerTitle = decodedText;
-                this.onDealerSearch();
-              }
-            })
-            .catch(err => {
-              console.error('图片扫描失败:', err);
-              showToast('无法从图片中识别二维码，请尝试其他图片或使用相机扫描');
-            });
-        }
-      };
-      
-      fileInputContainer.onclick = () => {
-        fileInput.click();
-      };
-      
-      fileInputContainer.appendChild(fileInput);
-      bottomArea.appendChild(fileInputContainer);
-      
-      // 添加取消按钮
-      const closeButton = document.createElement('div');
-      closeButton.style.width = '80%';
-      closeButton.style.height = '0.6rem';
-      closeButton.style.lineHeight = '0.6rem';
-      closeButton.style.backgroundColor = '#0064a0';
-      closeButton.style.color = '#fff';
-      closeButton.style.borderRadius = '0.3rem';
-      closeButton.style.fontSize = '0.28rem';
-      closeButton.style.textAlign = 'center';
-      closeButton.style.cursor = 'pointer';
-      closeButton.innerText = '关闭';
-      closeButton.onclick = () => {
-        if (this.html5QrCode) {
-          this.html5QrCode.stop().then(() => {
-            document.body.removeChild(scannerDiv);
-            this.html5QrCode = null;
-          }).catch(err => {
-            console.error('停止扫描失败:', err);
-            document.body.removeChild(scannerDiv);
-            this.html5QrCode = null;
-          });
-        } else {
-          document.body.removeChild(scannerDiv);
-        }
-      };
-      bottomArea.appendChild(closeButton);
-      scannerDiv.appendChild(bottomArea);
+
       
       // 添加到body
       document.body.appendChild(scannerDiv);
@@ -471,7 +379,6 @@ export default {
             
             // 移除扫描器DOM
             document.body.removeChild(scannerDiv);
-            this.html5QrCode = null;
             
             // 处理扫描结果
             this.dealerTitle = decodedText;
@@ -481,7 +388,7 @@ export default {
           },
           (errorMessage) => {
             // 处理错误，但不停止扫描
-            console.log(errorMessage);
+
           }
         ).catch((err) => {
           console.error('启动相机失败:', err);
