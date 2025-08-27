@@ -47,12 +47,12 @@
         <button class="dealer-btn" style="width: 100%;" @click="onDealerSearch">开始查询</button>
         <div  class="dealer-search" style="text-align: center;">
         
-          <div style="margin: 0.4rem 0 0.4rem 0; color: #2a78b6; font-size: 0.32rem; font-weight: bold; text-align: center; letter-spacing: 0.08em; display: flex; justify-content: center; align-items: center;">
+          <div style="margin: 0.6rem 0 0.4rem 0; color: #2a78b6; font-size: 0.32rem; font-weight: bold; text-align: center; letter-spacing: 0.08em; display: flex; justify-content: center; align-items: center;">
             或
           </div>
           <div @click="onScanQRCode" style="display: flex; flex-direction: column; align-items: center; cursor: pointer;">
             <img src="@/assets/img/code.png" alt="scan qr" style="width: 1.6rem; height: 1.6rem; margin-bottom: 0.08rem;" />
-            <div style="color: #2a78b6; font-size: 0.24rem; margin-top: 0.2rem; font-weight: bold;">点击扫描二维码</div>
+            <div style="color: #2a78b6; font-size: 0.24rem; margin-top: 0.4rem; font-weight: bold;">点击扫描二维码</div>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
           </span>
         </div>
 
-        <div v-if="dealerResult!==null" >
+        <div v-if="dealerResult!==null">
           <p style="color: #2a78b6; font-size: 0.3rem; margin-bottom: 0.18rem; margin-top: 0.38rem;">
             {{ dealerResult.title }}
           </p>
@@ -98,10 +98,8 @@
           <p class="dealer-company-name">{{company}}</p>
           <p class="dealer-unauth-text">未查到属于哈曼国际授权经销商，请谨慎购买。</p>
           <div class="dealer-tips">
-            <p>你可以，</p>
             <ul>
-              <li>1.  再次确认您所输入的企业全称是否正确，并再次查询；</li>
-              <li>2. 更换另一家授权企业进行查询。</li>
+              <li>请确认您所输入的<span style="font-weight: bold;color: #0064a0;">企业全称</span>是否<span style="font-weight: bold;color: #0064a0;">正确</span>且<span style="font-weight: bold;color: #0064a0;">完整</span>，并在此查询。</li>
             </ul>
           </div>
         </div>
@@ -549,12 +547,13 @@ export default {
 
 .dealer {
   padding: .3rem;
+   height: 8rem;
 
   .dealer-title {
     font-weight: bold; 
     color: #0064a0;
     font-size: .26rem;
-    margin-bottom: .2rem;
+    margin-bottom: .4rem;
     margin-top: .2rem;
   }
 
@@ -599,6 +598,11 @@ export default {
     color: #2a78b6;
     font-size: .24rem;
     margin-bottom: .2rem;
+  }
+
+  .dealer-unauthorized {
+    height: 6rem;
+    margin-bottom: .18rem;
   }
 
   .dealer-company-name {
