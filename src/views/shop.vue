@@ -50,7 +50,7 @@
           <div style="margin: 0.6rem 0 0.4rem 0; color: #2a78b6; font-size: 0.32rem; font-weight: bold; text-align: center; letter-spacing: 0.08em; display: flex; justify-content: center; align-items: center;">
             或
           </div>
-          <div @click="onScanQRCode" style="display: flex; flex-direction: column; align-items: center; cursor: pointer;">
+          <div @click="onScanQRCode" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; margin-bottom: 0.8rem;">
             <img src="@/assets/img/code.png" alt="scan qr" style="width: 1.6rem; height: 1.6rem; margin-bottom: 0.08rem;" />
             <div style="color: #2a78b6; font-size: 0.24rem; margin-top: 0.4rem; font-weight: bold;">点击扫描二维码</div>
           </div>
@@ -547,7 +547,6 @@ export default {
 
 .dealer {
   padding: .3rem;
-   height: 8rem;
 
   .dealer-title {
     font-weight: bold; 
