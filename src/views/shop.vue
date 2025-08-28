@@ -203,7 +203,6 @@ export default {
       this.dealerTitle = '';
       this.company = '';
       this.dealerResult = null;
-      //TODO: 返回上一页：二维码清空，标题清空
     },
     changeTab(index) {
       this.active = index;
@@ -232,7 +231,6 @@ export default {
 
     },
     onMap(item) {
-      console.log(item,'item')
       window.open(`https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${item.latitude};title:${item.title};addr:${item.addr}&key=${this.key}&referer=${this.key}`)
     },
     onDizhi(dizhi) {
@@ -379,14 +377,22 @@ export default {
             document.body.removeChild(scannerDiv);
             
             // 处理扫描结果
-            this.dealerTitle = decodedText;
+            // 从扫描结果URL中提取company参数
+            if(decodedText.indexOf('company') == -1) {
+              showToast('无法从图片中识别二维码，请尝试其他图片或使用相机扫描');
+              return;
+            }
+            const url = new URL(decodedText);
+            const params = new URLSearchParams(url.hash.substring(2)); // 去掉 #/ 
+            this.company = params.get('company') || '';
+            this.dealerTitle = params.get('company') || '';
             
             // 自动执行查询
             this.onDealerSearch();
           },
           (errorMessage) => {
             // 处理错误，但不停止扫描
-
+            console.error('扫描错误:', errorMessage);
           }
         ).catch((err) => {
           console.error('启动相机失败:', err);
