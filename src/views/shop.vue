@@ -43,6 +43,7 @@
         <div style="width: 100%;">
           <input v-model="dealerTitle" class="dealer-input" type="text"
             style="width: 100%; box-sizing: border-box; display: block;" placeholder="请输入完整的公司名称" />
+          <div style="color: #888; font-size: 0.22rem; margin-top: 0.1rem;padding-left: 0.1rem;">精准搜索，不支持模糊搜索</div>
         </div>
         <button class="dealer-btn" style="width: 100%;" @click="onDealerSearch">开始查询</button>
         <div  class="dealer-search" style="text-align: center;">
@@ -67,7 +68,7 @@
           </span>
         </div>
 
-        <div v-if="dealerResult!==null">
+        <div v-if="dealerResult!==null && dealerResult.status === '0'">
           <p style="color: #2a78b6; font-size: 0.3rem; margin-bottom: 0.18rem; margin-top: 0.38rem;">
             {{ dealerResult.title }}
           </p>
@@ -94,12 +95,22 @@
           </div>
         </div>
 
+        <div v-else-if="dealerResult!==null && dealerResult.status === '1'" class="dealer-unauthorized">
+          <p class="dealer-company-name">{{company}}</p>
+          <p class="dealer-unauth-text">已与该经销商暂停合作，请谨慎购买。</p>
+          <div class="dealer-tips">
+            <ul>
+              <li>请确认您所输入的<span style="font-style: italic; font-weight: bolder;"> 企业全称 </span>是否<span style="font-style: italic;font-weight: bolder;"> 正确 </span>且<span style="font-style: italic;font-weight: bolder;">完整</span>，并在此查询。</li>
+            </ul>
+          </div>
+        </div>
+
         <div v-else class="dealer-unauthorized">
           <p class="dealer-company-name">{{company}}</p>
           <p class="dealer-unauth-text">未查到属于哈曼国际授权经销商，请谨慎购买。</p>
           <div class="dealer-tips">
             <ul>
-              <li>请确认您所输入的<span style="font-weight: bold;color: #0064a0;">企业全称</span>是否<span style="font-weight: bold;color: #0064a0;">正确</span>且<span style="font-weight: bold;color: #0064a0;">完整</span>，并在此查询。</li>
+              <li>请确认您所输入的<span style="font-style: italic; font-weight: bolder;"> 企业全称 </span>是否<span style="font-style: italic;font-weight: bolder;"> 正确 </span>且<span style="font-style: italic;font-weight: bolder;">完整</span>，并在此查询。</li>
             </ul>
           </div>
         </div>
