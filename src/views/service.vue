@@ -7,7 +7,7 @@
     </div>
     <div class="contact">
       <p>哈曼专业音视产品服务热线</p>
-      <p>40011667806</p>
+      <p>400-166-7806</p>
       <p>客户服务邮箱</p>
       <p>ChinaPRO.Service@harman.com</p>
     </div>
