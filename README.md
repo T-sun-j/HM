@@ -1,6 +1,8 @@
 # vue-admin
 
 ## Project setup
+
+ sudo n 14.17.6
 ```
 yarn install
 ```

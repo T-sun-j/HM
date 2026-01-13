@@ -1,6 +1,7 @@
 const { rules } = require('eslint-plugin-prettier')
 const path = require('path')
 module.exports = {
+    transpileDependencies: ['vue-router'],
     lintOnSave: false,
     devServer: {
         overlay: {

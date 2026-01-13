@@ -139,7 +139,8 @@ export default {
   data() {
     return {
       active: 0,
-      navs: ["线上电商", "线下体验", "经销商查询"],
+      // navs: ["线上电商", "线下体验", "经销商查询"],
+      navs: ["线上电商", "线下体验"],
       env: window.env,
       shops: [],
       links: [],
