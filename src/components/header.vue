@@ -170,19 +170,18 @@ export default {
           if (val.name == "productDetail") {
             this.showNav = false;
             document.body.style.marginTop = "1.8rem";
-            console.log(5);
-            //
           } else {
+            console.log(this.$route.name,'this.$route.name');
+            if(this.$route.name == "dealerInquiry"){
+              this.active = 7;
+            }
             this.showNav = true;
-            //
+           
             if (this.showSearch) {
               document.body.style.marginTop = `calc(1.7rem + 54px)`;
             } else {
               document.body.style.marginTop = "1.7rem";
             }
-            //
-
-            console.log(6);
           }
         });
       },
