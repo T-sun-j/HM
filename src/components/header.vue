@@ -89,8 +89,8 @@ export default {
           url: "home",
         },
         {
-          name: "经销商通道",
-          url: "loginDeal",
+          name: "经销商查询",
+          url: "dealerInquiry",
         },
       ],
       menus: [
@@ -136,9 +136,9 @@ export default {
           url: "home",
         },
         {
-          name: "经销商通道",
+          name: "经销商查询",
           img: require("../assets/img/menu/menu-icon-8.png"),
-          url: "loginDeal",
+          url: "dealerInquiry",
         },
       ],
       active: -1,
