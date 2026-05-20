@@ -324,7 +324,12 @@ export default {
               return;
             }
             const url = new URL(decodedText);
-            const params = new URLSearchParams(url.hash.substring(2)); // 去掉 #/ 
+            // hash 格式通常为 #/dealerInquiry?company=xxx
+            // 我们需要从 hash 中提取 ? 之后的内容
+            const hash = url.hash;
+            const queryIndex = hash.indexOf('?');
+            const queryString = queryIndex !== -1 ? hash.substring(queryIndex + 1) : '';
+            const params = new URLSearchParams(queryString);
             this.company = params.get('company') || '';
             this.dealerTitle = params.get('company') || '';
             
