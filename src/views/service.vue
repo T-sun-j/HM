@@ -31,33 +31,22 @@
         <table width="100%" border="0">
           <tbody>
             <tr class="firstRow">
-              <td
-                style="background: #bbdde6; text-align: center; padding: 5px"
-                width="20%"
-              >
+              <td style="background: #bbdde6; text-align: center; padding: 5px" width="20%">
                 <span style="font-size: 10px"><strong>品牌</strong></span>
               </td>
               <td style="background: #bbdde6; text-align: center" width="50%">
                 <span style="font-size: 10px"><strong>产品类别</strong></span>
               </td>
               <td style="background: #bbdde6; text-align: center" width="30%">
-                <span style="font-size: 10px"
-                  ><strong>保修期（年）</strong></span
-                >
+                <span style="font-size: 10px"><strong>保修期（年）</strong></span>
               </td>
             </tr>
             <tr>
-              <td
-                style="background: #eaf5f7; text-align: center"
-                rowspan="2"
-                colspan="1"
-              >
+              <td style="background: #eaf5f7; text-align: center" rowspan="2" colspan="1">
                 <span style="font-size: 10px">AKG<br /></span>
               </td>
               <td style="background: #eaf5f7; text-align: center; padding: 5px">
-                <span style="font-size: 10px"
-                  >AKG专业耳机，耳机麦克风，KM200无线麦克风</span
-                >
+                <span style="font-size: 10px">AKG专业耳机，耳机麦克风，KM200无线麦克风</span>
               </td>
               <td style="background: #eaf5f7; text-align: center">
                 <span style="font-size: 10px">1</span>
@@ -72,18 +61,12 @@
               </td>
             </tr>
             <tr>
-              <td
-                style="background: #f5fafb; text-align: center"
-                rowspan="3"
-                colspan="1"
-              >
+              <td style="background: #f5fafb; text-align: center" rowspan="3" colspan="1">
                 <span style="font-size: 10px">JBL<br /></span>
               </td>
               <td style="background: #f5fafb; text-align: center; padding: 5px">
-                <span style="font-size: 10px"
-                  >JBL娱乐系列音箱， JBL娱乐系列功放，Rock
-                  one、VM系列麦克风，KX、KX系列麦克风 ,Beyond系列一体机等</span
-                >
+                <span style="font-size: 10px">JBL娱乐系列音箱， JBL娱乐系列功放，Rock
+                  one、VM系列麦克风，KX、KX系列麦克风 ,Beyond系列一体机等</span>
               </td>
               <td style="background: #f5fafb; text-align: center">
                 <span style="font-size: 10px">1</span>
@@ -91,10 +74,8 @@
             </tr>
             <tr>
               <td style="background: #f5fafb; text-align: center; padding: 5px">
-                <span style="font-size: 10px"
-                  >NANO
-                  K系列、IRX系列、104、LSR3系列，LSR7系列，CSS系列、8124/8128吸顶喇叭，音箱内置电池等</span
-                >
+                <span style="font-size: 10px">NANO
+                  K系列、IRX系列、104、LSR3系列，LSR7系列，CSS系列、8124/8128吸顶喇叭，音箱内置电池等</span>
               </td>
               <td style="background: #f5fafb; text-align: center">
                 <span style="font-size: 10px">1</span>
@@ -109,17 +90,11 @@
               </td>
             </tr>
             <tr>
-              <td
-                style="background: #eaf5f7; text-align: center"
-                rowspan="2"
-                colspan="1"
-              >
+              <td style="background: #eaf5f7; text-align: center" rowspan="2" colspan="1">
                 <span style="font-size: 10px">Crown<br /></span>
               </td>
               <td style="background: #eaf5f7; text-align: center; padding: 5px">
-                <span style="font-size: 10px"
-                  >Crown娱乐系列功放（Xli/T系列）</span
-                >
+                <span style="font-size: 10px">Crown娱乐系列功放（Xli/T系列）</span>
               </td>
               <td style="background: #eaf5f7; text-align: center">
                 <span style="font-size: 10px">1</span>
@@ -134,11 +109,7 @@
               </td>
             </tr>
             <tr>
-              <td
-                style="background: #f5fafb; text-align: center"
-                rowspan="2"
-                colspan="1"
-              >
+              <td style="background: #f5fafb; text-align: center" rowspan="2" colspan="1">
                 <span style="font-size: 10px">AMX<br /></span>
               </td>
               <td style="background: #f5fafb; text-align: center; padding: 5px">
@@ -169,9 +140,7 @@
             </tr>
             <tr>
               <td style="background: #f5fafb; text-align: center; padding: 5px">
-                <span style="font-size: 10px"
-                  >Lexicon<br />Soundcraft<br />BSS<br />DBX</span
-                >
+                <span style="font-size: 10px">Lexicon<br />Soundcraft<br />BSS<br />DBX</span>
               </td>
               <td style="background: #f5fafb; text-align: center; padding: 5px">
                 <span style="font-size: 10px">所有品牌整机</span>
@@ -476,140 +445,28 @@
         <p>电话：13565979988</p>
       </li>
     </ul>
+
     <div class="card-more">
-      <!-- path="/pages/XXX" -->
-      <!-- wx2a64e67662a5d95d appid="wx2a64e67662a5d95d"-->
-      <div class="card-item">
-        <img src="../assets/img/service/service-icon-1.png" alt="" />
-        <wx-open-launch-weapp
-          id="launch-btn1"
-          username="gh_c965586ee466"
-          path="pages/security/security"
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-          "
-        >
-          <div
-            v-is="'script'"
-            type="text/wxtag-template"
-            style="
-              display: block;
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-            "
-          >
-            <div
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: block;
-                width: 100%;
-                height: 100%;
-              "
-              class="open-btn"
-            >
-              打开小程序
-            </div>
-          </div>
+      <div class="card-item" style="position: relative;">
+        <img src="../assets/img/service/service-icon-1.png" alt="" style="display: block; width: 100%; height: 100%;" />
+        <wx-open-launch-weapp id="launch-btn1" username="gh_5661dd16b8d2" path="pages/register/register.html"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
         </wx-open-launch-weapp>
       </div>
-      <div class="card-item">
-        <img src="../assets/img/service/service-icon-2.png" alt="" />
-        <wx-open-launch-weapp
-          id="launch-btn2"
-          username="gh_c965586ee466"
-          path="pages/service/service?serviceId=1"
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-          "
-        >
-          <div
-            v-is="'script'"
-            type="text/wxtag-template"
-            style="
-              display: block;
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-            "
-          >
-            <div
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: block;
-                width: 100%;
-                height: 100%;
-              "
-              class="open-btn"
-            >
-              打开小程序
-            </div>
-          </div>
+
+      <div class="card-item" style="position: relative;">
+        <img src="../assets/img/service/service-icon-2.png" alt="" style="display: block; width: 100%; height: 100%;" />
+        <wx-open-launch-weapp id="launch-btn2" username="gh_c965586ee466" path="pages/mid-security/index.html"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
         </wx-open-launch-weapp>
       </div>
-      <div class="card-item">
-        <img src="../assets/img/service/service-icon-3.png" alt="" />
-        <wx-open-launch-weapp
-          id="launch-btn3"
-          username="gh_c965586ee466"
-          path="pages/service/service?serviceId=3"
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-          "
-        >
-          <div
-            v-is="'script'"
-            type="text/wxtag-template"
-            style="
-              display: block;
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-            "
-          >
-            <div
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: block;
-                width: 100%;
-                height: 100%;
-              "
-              class="open-btn"
-            >
-              打开小程序
-            </div>
-          </div>
+
+      <div class="card-item" style="position: relative;">
+        <img src="../assets/img/service/service-icon-3.png" alt="" style="display: block; width: 100%; height: 100%;" />
+        <wx-open-launch-weapp id="launch-btn3" username="gh_c965586ee466" path="pages/service/service.html"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
         </wx-open-launch-weapp>
       </div>
-      <!-- <img src="../assets/img/service/service-icon-2.png" alt="" />
-      <img src="../assets/img/service/service-icon-3.png" alt="" /> -->
     </div>
     <foot></foot>
   </div>
@@ -636,8 +493,8 @@ export default {
     };
   },
   created() {
-    var pageUrl = "https://www.harmanpro.net/#/service";
-    //var pageUrl = location.href;
+    // var pageUrl = "https://www.harmanpro.net";
+    var pageUrl = window.location.href.split('#')[0];
     $.ajax({
       url: "share.php",
       dataType: "json",
@@ -675,6 +532,41 @@ export default {
         });
         // shareFn();
         wx.ready(function (res2) {
+          console.log("ready------>", res2);
+
+          // 封装一个纯 DOM 创建函数，100% 躲过所有字符串过滤和 XSS 拦截
+          function injectWeappSlot(btnId) {
+            var btn = document.getElementById(btnId);
+            if (!btn) return;
+
+            // 清空内部
+            btn.innerHTML = '';
+
+            // 1. 动态创建 script 标签
+            var script = document.createElement('script');
+            script.type = 'text/wxtag-template';
+
+            // 2. 动态创建内部的点击热区 div
+            var div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.top = '0';
+            div.style.left = '0';
+            div.style.width = '100%';
+            div.style.height = '100%';
+            div.style.display = 'block';
+            div.style.background = 'transparent'; // 透明背景
+
+            // 3. 组合并塞入开放标签
+            script.appendChild(div);
+            btn.appendChild(script);
+          }
+
+          // 执行注入
+          injectWeappSlot("launch-btn1");
+          injectWeappSlot("launch-btn2");
+          injectWeappSlot("launch-btn3");
+
+
           console.log("ready------>", res2);
           var launchBtn1 = document.getElementById("launch-btn1");
           launchBtn1.addEventListener("ready", function (e) {
@@ -745,26 +637,32 @@ export default {
   color: #fff;
   font-size: 0.4rem;
   font-weight: bold;
+
   img {
     width: 0.48rem;
     height: 0.48rem;
   }
+
   p {
     margin-left: 0.2rem;
   }
 }
+
 .contact {
   font-size: 0.26rem;
 
   padding: 0.4rem 0;
+
   p {
     text-align: center;
     line-height: 1.8;
+
     &:nth-child(2) {
       margin-bottom: 0.25rem;
     }
   }
 }
+
 .band {
   display: flex;
   justify-content: space-between;
@@ -774,18 +672,22 @@ export default {
   color: #fff;
   padding: 0 0.48rem;
   margin-bottom: 2px;
+
   .band-title {
     img {
       width: 0.36rem;
       height: 0.36rem;
     }
+
     span {
       margin-left: 0.1rem;
     }
+
     font-size: 0.26rem;
     display: flex;
     align-items: center;
   }
+
   .slide {
     font-size: 0.24rem;
     display: flex;
@@ -793,82 +695,100 @@ export default {
     justify-content: center;
     width: 0.8rem;
     height: 0.8rem;
+
     .dot {
       width: 0;
       height: 0;
       border-top: 0.1rem solid #fff;
       border-right: 0.1rem solid transparent;
       border-left: 0.1rem solid transparent;
+
       &.up-status {
         transform: rotate(180deg);
       }
     }
+
     p {
       margin-left: 0.1rem;
     }
   }
 }
+
 .policy {
   padding: 0.5rem;
 }
+
 .po-title {
   font-size: 0.3rem;
   font-weight: bold;
   margin-bottom: 0.1rem;
 }
+
 .po-sub {
   display: block;
   color: #9b9b9b;
   font-size: 0.26rem;
 }
+
 .para {
   color: #202020;
   font-size: 0.26rem;
   line-height: 1.6;
   margin-bottom: 0.4rem;
 }
+
 .addres-list {
   margin: 0.4rem 0.5rem;
+
   li {
     font-size: 0.26rem;
     margin-bottom: 0.4rem;
     line-height: 1.5;
+
     h4 {
       color: #0e3b73;
       margin-bottom: 0.08rem;
       font-weight: 500;
     }
+
     p {
       margin-bottom: 0.08rem;
       color: #535353;
     }
   }
 }
+
 .card-more {
   display: flex;
   justify-content: space-between;
   padding: 0.4rem 0.2rem;
+
   .card-item {
     width: 2.28rem;
     height: 1.56rem;
     position: relative;
   }
+
   img {
     width: 2.28rem;
     height: 1.56rem;
   }
 }
+
 .tab-zone {
   margin: 0.25rem 0;
+
   table {
     th {
       height: 0.5rem;
       line-height: 0.5rem;
     }
+
     td {
       height: 0.5rem;
 
       line-height: 0.5rem;
+
       span {
         display: block;
         width: 100%;
@@ -877,14 +797,17 @@ export default {
       }
     }
   }
+
   p {
     font-size: 0.26rem;
     line-height: 1.5;
   }
+
   table td {
     border: 1px solid #fff;
   }
 }
+
 .list-paddingleft-2 {
   font-size: 0.26rem;
   line-height: 1.5;
