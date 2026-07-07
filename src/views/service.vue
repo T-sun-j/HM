@@ -449,14 +449,14 @@
     <div class="card-more">
       <div class="card-item" style="position: relative;">
         <img src="../assets/img/service/service-icon-1.png" alt="" style="display: block; width: 100%; height: 100%;" />
-        <wx-open-launch-weapp id="launch-btn1" username="gh_5661dd16b8d2" path="pages/register/register.html"
+        <wx-open-launch-weapp id="launch-btn1" username="gh_c965586ee466" path="pages/mid-security/index.html"
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
         </wx-open-launch-weapp>
       </div>
 
       <div class="card-item" style="position: relative;">
         <img src="../assets/img/service/service-icon-2.png" alt="" style="display: block; width: 100%; height: 100%;" />
-        <wx-open-launch-weapp id="launch-btn2" username="gh_c965586ee466" path="pages/mid-security/index.html"
+        <wx-open-launch-weapp id="launch-btn2" username="gh_c965586ee466" path="pages/register/register.html"
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
         </wx-open-launch-weapp>
       </div>
