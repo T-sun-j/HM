@@ -65,6 +65,10 @@ export default {
           url: "productData",
         },
         {
+          name: "画册下载",
+          url: "productMarket",
+        },
+        {
           name: "应用案例",
           url: "case",
         },
@@ -84,10 +88,10 @@ export default {
           name: "售后服务",
           url: "service",
         },
-        {
-          name: "曼粉俱乐部",
-          url: "home",
-        },
+        // {
+        //   name: "曼粉俱乐部",
+        //   url: "home",
+        // },
         {
           name: "经销商查询",
           url: "dealerInquiry",
@@ -148,18 +152,18 @@ export default {
     showSearch(val) {
       if (val) {
         if (this.$route.name == "productDetail") {
-          document.body.style.marginTop = "2.8rem";
+          document.body.style.marginTop = "2.145rem";
           console.log(1);
         } else {
-          document.body.style.marginTop = `calc(1.7rem + 54px)`;
+          document.body.style.marginTop = `calc(1.1rem + 54px)`;
           console.log(2);
         }
       } else {
         if (this.$route.name == "productDetail") {
-          document.body.style.marginTop = "1.8rem";
+          document.body.style.marginTop = "1.145rem";
           console.log(3);
         } else {
-          document.body.style.marginTop = "1.7rem";
+          document.body.style.marginTop = "1.1rem";
           console.log(4);
         }
       }
@@ -169,18 +173,17 @@ export default {
         this.$nextTick(() => {
           if (val.name == "productDetail") {
             this.showNav = false;
-            document.body.style.marginTop = "1.8rem";
+            document.body.style.marginTop = "1.145rem";
           } else {
-            console.log(this.$route.name,'this.$route.name');
             if(this.$route.name == "dealerInquiry"){
               this.active = 7;
             }
             this.showNav = true;
            
             if (this.showSearch) {
-              document.body.style.marginTop = `calc(1.7rem + 54px)`;
+              document.body.style.marginTop = `calc(1.1rem + 54px)`;
             } else {
-              document.body.style.marginTop = "1.7rem";
+              document.body.style.marginTop = "1.1rem";
             }
           }
         });
@@ -272,11 +275,11 @@ export default {
 }
 .header {
   background-color: #0064a0;
-  height: 1.7rem;
+  height: 1.1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0.3rem;
+  padding: 0 0.24rem;
   position: relative;
   box-sizing: border-box;
   z-index: 100;
@@ -285,34 +288,36 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1.87rem;
-    height: 1.01em;
+    width: 1.25rem;
+    height: 0.66rem;
     background: url("../assets/img/general/top-logo(2).png") no-repeat;
     background-size: 100% 100%;
   }
   .person-icon {
-    width: 0.64rem;
-    height: 0.64rem;
+    width: 0.44rem;
+    height: 0.44rem;
     background: url("../assets/img/general/search-icon.png") no-repeat;
     background-size: 100% 100%;
   }
   .nav-icon {
-    width: 0.64rem;
-    height: 0.64rem;
+    width: 0.46rem;
+    height: 0.48rem;
     background: url("../assets/img/general/menu-icon.png") no-repeat;
     background-size: 100% 100%;
   }
   .nav-x {
+    width: 0.42rem;
+    height: 0.42rem;
     background: url("../assets/img/general/menu-icon-close.png") no-repeat;
     background-size: 100% 100%;
   }
   .nav-list {
     position: fixed;
     z-index: 100;
-    top: 1.7rem;
+    top: 1.1rem;
     left: 0;
     width: 100%;
-    height: calc(100vh - 1.7rem);
+    height: calc(100vh - 0.1rem);
     background-color: #fff;
     li {
       height: 1.16rem;

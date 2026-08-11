@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pro-nav">
+    <!-- <div class="pro-nav">
       <div
         class="pro-item"
         :class="[active == index ? 'active' : '']"
@@ -10,7 +10,7 @@
       >
         {{ item }}
       </div>
-    </div>
+    </div> -->
     <div class="market-list">
       <!-- @click="goDetail(item)" -->
       <span

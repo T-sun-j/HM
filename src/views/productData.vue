@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pro-nav">
+    <!-- <div class="pro-nav">
       <div
         class="pro-item"
         :class="[active == index ? 'active' : '']"
@@ -10,7 +10,7 @@
       >
         {{ item }}
       </div>
-    </div>
+    </div> -->
     <div class="brand">
       <div class="logo-box">
         <div class="logos" ref="logoBox">
@@ -141,7 +141,7 @@ export default {
       searchText: "",
       active: 0,
       showTab: 0,
-      logoAct: 5,
+      logoAct: 6,
       oldLogoAct: 0,
       defaultProps: {
         children: "child",
@@ -156,7 +156,7 @@ export default {
   },
   created() {
     this.getMaterial(this.$route.query.brandsecret || "");
-    this.logoAct = this.$route.query.logoAct || 5;
+    this.logoAct = this.$route.query.logoAct || 6;
   },
   methods: {
     // 判断父级是否应该展开
@@ -198,24 +198,14 @@ export default {
                 }
               }
             }
-            const logoBox = this.$refs.logoBox;
-            if (logoBox) {
-              const logoItems = logoBox.getElementsByClassName("logo-item");
-              if (
-                logoItems &&
-                logoItems.length > 0 &&
-                logoItems[this.logoAct]
-              ) {
-                logoItems[this.logoAct].scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
-    
-                if (this.oldLogoAct !== this.logoAct) {
-                  this.getMaterial(this.logos[this.logoAct].secret || "");
-                  this.oldLogoAct = this.logoAct;
-                }
-              }
+            if (
+              this.logos &&
+              this.logos.length > 0 &&
+              this.logos[this.logoAct] &&
+              this.oldLogoAct !== this.logoAct
+            ) {
+              this.getMaterial(this.logos[this.logoAct].secret || "");
+              this.oldLogoAct = this.logoAct;
             }
           });
         } else {
@@ -367,26 +357,34 @@ export default {
 }
 
 .logo-box {
-  height: 1.3rem;
+  height: auto;
   overflow: hidden;
+  background-color: #e5eff5;
+  // padding: 0.06rem 0.12rem 0.12rem;
 }
 
 .logos {
-  white-space: nowrap;
-  overflow-y: scroll;
+  white-space: normal;
+  overflow: visible;
   display: flex;
-  padding-bottom: 0.2rem;
+  flex-wrap: wrap;
+  // row-gap: 0.08rem;
   .logo-item {
-    width: 1.1rem;
+    width: 20%;
     height: 1.1rem;
-    padding: 0.1rem;
-    display: inline-block;
-    border: 0.01rem solid #fbf7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     flex-shrink: 0;
+    // padding: 0.1rem 0.08rem;
 
     img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
     }
   }
 }
@@ -417,7 +415,7 @@ export default {
 .menus {
   display: flex;
   font-size: 0.24rem;
-  border-top: 1px solid #ccc;
+  // border-top: 1px solid #ccc;
 
   .menu-bar {
     width: 40%;
