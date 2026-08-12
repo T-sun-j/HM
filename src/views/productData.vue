@@ -466,7 +466,7 @@ export default {
         font-weight: bold;
       }
       .title2 {
-        width: 100%;
+        width: auto;
         padding: 0.1rem 0.1rem 0.1rem 0.2rem;
         display: flex;
         min-height: 0.6rem;
