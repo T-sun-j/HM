@@ -243,7 +243,18 @@ export default {
 
     },
     onMap(item) {
-      window.open(`https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${item.latitude};title:${item.title};addr:${item.addr}&key=${this.key}&referer=${this.key}`)
+      let coordStr = (item.latitude || '').replace(/\s+/g, '');
+      const parts = coordStr.split(',');
+      if (parts.length === 2) {
+        const first = parts[0];
+        const second = parts[1];
+        const lngFirst = Math.abs(parseFloat(first)) > 90;
+        coordStr = lngFirst ? `${second},${first}` : `${first},${second}`;
+      }
+      const title = encodeURIComponent(item.title || '');
+      const addr = encodeURIComponent(item.addr || '');
+      const url = `https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${coordStr};title:${title};addr:${addr}&key=${this.key}&referer=${this.key}`;
+      window.open(url);
     },
     onDizhi(dizhi) {
       window.open(`https://apis.map.qq.com/uri/v1/search?keyword=${dizhi}&region= &referer=${this.key}`)
