@@ -12,13 +12,13 @@
       <p>ChinaPRO.Service@harman.com</p>
     </div>
 
-    <div class="band">
+    <div class="band"  @click="handleShow(1)">
       <div class="band-title">
         <img src="../assets/img/service/service-icon-4.png" alt="" />
         <span>保修政策</span>
       </div>
 
-      <div class="slide" @click="handleShow(1)">
+      <div class="slide">
         <div class="dot" :class="[show1 ? 'up-status' : '']"></div>
         <!-- <p>点击展开全部</p> -->
       </div>
@@ -300,12 +300,12 @@
         </p>
       </div>
     </div>
-    <div class="band">
+    <div class="band" @click="handleShow(2)">
       <div class="band-title">
         <img src="../assets/img/service/service-icon-5.png" alt="" />
         <span>服务中心</span>
       </div>
-      <div class="slide" @click="handleShow(2)">
+      <div class="slide">
         <div class="dot" :class="[show2 ? 'up-status' : '']"></div>
       </div>
     </div>
@@ -356,12 +356,12 @@
         <p>电话：15137189550</p>
       </li>
     </ul>
-    <div class="band">
+    <div class="band" @click="handleShow(3)">
       <div class="band-title">
         <img src="../assets/img/service/service-icon-6.png" alt="" />
         <span>JBL Entertainment 防伪服务中心</span>
       </div>
-      <div class="slide" @click="handleShow(3)">
+      <div class="slide">
         <div class="dot" :class="[show3 ? 'up-status' : '']"></div>
       </div>
     </div>
