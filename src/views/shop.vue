@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div class="offline" v-if="active == 1">
-      <!-- <h3 class="line-title">授权店铺</h3> -->
+      <h3 class="line-title">JBL Entertainment授权体验中心</h3>
       <ul class="shop-list">
         <li v-for="(item, index) in shops" :key="index">
           <div class="annotation">
@@ -501,13 +501,15 @@ export default {
 }
 
 .offline {
-  padding: .3rem .3rem 0;
+  padding: 0rem .3rem 0;
 }
 
 .line-title {
-  color: #458eb7;
+  color: #000000;
+  height: 1rem;
+  text-align: center;
   font-size: 0.24rem;
-  line-height: 0.86rem;
+  line-height: 1rem;
 }
 
 .shop-list {
