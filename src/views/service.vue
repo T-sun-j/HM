@@ -12,7 +12,7 @@
       <p>ChinaPRO.Service@harman.com</p>
     </div>
 
-    <div class="band"  @click="handleShow(1)">
+    <div class="band" @click="handleShow(1)">
       <div class="band-title">
         <img src="../assets/img/service/service-icon-4.png" alt="" />
         <span>保修政策</span>
@@ -310,50 +310,12 @@
       </div>
     </div>
     <ul class="addres-list" v-if="show2">
-      <li>
-        <h4>哈曼深圳客户服务中心</h4>
-        <p>深圳市南山区招商街道工业三路1号招商局港口大厦12楼1203室</p>
-        <p>联系人：马雅丽/李玲</p>
-        <p>电话：18923783881;0755-86360539</p>
-      </li>
-      <li>
-        <h4>哈曼上海客户服务中心</h4>
-        <p>上海市普陀区同普路1175弄14号406室</p>
-        <p>邮箱：Info@jointav.com</p>
-        <p>联系人：李謇遐</p>
-        <p>电话：15692103181/021-62598351</p>
-      </li>
-      <li>
-        <h4>哈曼广州客户服务中心</h4>
-        <p>广东省广州市越秀区大沙头三马路1号之4</p>
-        <p>邮箱：630497547@qq.com</p>
-        <p>联系人：陈锦标</p>
-        <p>电话：18688870988</p>
-      </li>
-      <li>
-        <h4>哈曼北京客户服务中心</h4>
-        <p>北京市通州区北苑155号大唐高新技术创业园北小院2号</p>
-        <p>联系人：陈勇</p>
-        <p>电话：13701206544</p>
-      </li>
-      <li>
-        <h4>哈曼成都客户服务中心</h4>
-        <p>成都市金牛区黄金东二路413号</p>
-        <p>联系人：李兰宁</p>
-        <p>电话：028-87685253/87743433</p>
-      </li>
-      <li>
-        <h4>哈曼专业台湾客户服务中心</h4>
-        <p>台北市中华路一段76巷10弄3号</p>
-        <p>邮箱：service76103@gmail.com</p>
-        <p>联系人：简先生 ATTN: Mr. Jian</p>
-        <p>电话：+886-2-23822568#66</p>
-      </li>
-      <li>
-        <h4>哈曼郑州客户服务中心</h4>
-        <p>河南省郑州市新郑市龙湖镇祥云路龙威汽车城南厂房二楼1234号二楼</p>
-        <p>联系人：镜和科技</p>
-        <p>电话：15137189550</p>
+      <li v-for="(item, index) in serviceList" :key="index">
+        <h4>{{ item.name }}</h4>
+        <p>{{ item.address }}</p>
+        <p v-if="item.email">邮箱：{{ item.email }}</p>
+        <p>联系人：{{ item.contact }}</p>
+        <p>电话：{{ item.phone }}</p>
       </li>
     </ul>
     <div class="band" @click="handleShow(3)">
@@ -366,89 +328,12 @@
       </div>
     </div>
     <ul class="addres-list" v-if="show3">
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>杭州市拱墅区萍水路333号，新武林商业中心1273号</p>
-        <p>联系人：陈春霞</p>
-        <p>电话：18106522939</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>重庆市渝中区新华路鸥鹏大厦负一楼F001商铺</p>
-        <p>联系人：冯娟</p>
-        <p>电话：4008788891</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>香港九龙深水埗长沙湾道248 号地铺</p>
-        <p>联系人：Kam Yuki</p>
-        <p>电话：00852-28111259</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>广州市番禺区沙头街南双玉村工业二路1 号（中智集团）</p>
-        <p>联系人：朱慧兰</p>
-        <p>电话：13420549922</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>广州市番禺区南里路3号一楼（广州汇艺）</p>
-        <p>联系人：刘娟</p>
-        <p>电话：13112263640</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>西安市雁塔区唐延路旺座现代城B座2902室</p>
-        <p>联系人：赵增虎</p>
-        <p>电话：13891900216</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>贵阳市西南国际商贸城4号楼B区3楼14号</p>
-        <p>联系人：王军</p>
-        <p>电话：13802927166</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>成都市成华区华盛路58号9幢</p>
-        <p>联系人：伍孔希</p>
-        <p>电话：13982032688</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>河南省郑州市新郑市龙湖镇祥云路龙威汽车城南厂房二楼1234号二楼</p>
-        <p>联系人：镜和科技</p>
-        <p>电话：15137189550</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>甘肃省兰州市城关区东岗东路1681号瑞德摩尔城市购物广场王府井百货商场六楼西南角22-6209</p>
-        <p>联系人：王震洲</p>
-        <p>电话：18152089000</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>湖南省长沙市芙蓉区三湘南湖大市场专业音响广场商务楼一楼5号</p>
-        <p>联系人：陈亮</p>
-        <p>电话：18973196685</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>吉林省长春市二道区远达大街裕民路红星国际广场6号楼吉林省设计大厦1211-1212室</p>
-        <p>联系人：付龙</p>
-        <p>电话：18544143333</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>新疆乌鲁木齐市水磨沟区南湖北路康宁五巷311号新疆星网视易信息科技有限公司</p>
-        <p>联系人：朱勇</p>
-        <p>电话：13565979988</p>
-      </li>
-      <li>
-        <h4>JBL Entertainment 防伪服务中心</h4>
-        <p>辽宁省沈阳市沈河区万寿寺街155号沈阳日红灯光音响工程有限公司</p>
-        <p>联系人：张丹妮</p>
-        <p>电话：15040368886</p>
+      <li v-for="(item, index) in jblServiceList" :key="index">
+        <h4>{{ item.name }}</h4>
+        <p>{{ item.address }}</p>
+        <p v-if="item.email">邮箱：{{ item.email }}</p>
+        <p>联系人：{{ item.contact }}</p>
+        <p>电话：{{ item.phone }}</p>
       </li>
     </ul>
 
@@ -483,6 +368,7 @@ import indexHeader from "@/components/header.vue";
 import indexTitle from "@/components/title.vue";
 import item from "@/components/item.vue";
 import foot from "@/components/foot.vue";
+import { getNetList } from "@/api/service";
 // import { getWXData } from "../api/index";
 export default {
   components: {
@@ -496,6 +382,8 @@ export default {
       show1: false,
       show2: false,
       show3: false,
+      serviceList: [], // 普通服务中心
+      jblServiceList: [], // JBL 防伪服务中心
     };
   },
   created() {
@@ -613,6 +501,21 @@ export default {
         });
       },
     });
+    getNetList({
+      page: 0,
+      pagesize: 15000,
+      city: "all"
+    }).then(res => {
+      console.log("网点列表数据：", res)
+      if (res && res.errorcode === 0 && res.data) {
+        // 根据名称是否包含 JBL 区分两类
+        this.serviceList = res.data.filter(item => !item.name.includes('JBL'));
+        this.jblServiceList = res.data.filter(item => item.name.includes('JBL'));
+      }
+    }).catch(err => {
+      console.error("请求失败：", err)
+    })
+ 
   },
   methods: {
     handleShow(num) {
